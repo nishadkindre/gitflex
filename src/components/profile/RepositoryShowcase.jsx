@@ -576,7 +576,7 @@ const RepositoryShowcase = ({ repos, loading }) => {
           {filteredAndSortedRepos.length > 4 && (
             <div className="flex justify-end pt-4">
               <Button variant="outline" onClick={() => setShowAllRepos(!showAllRepos)} className="text-primary hover:text-primary-foreground hover:bg-primary transition-colors">
-                {showAllRepos ? 'Show Less' : `Show More (${filteredAndSortedRepos.length - 4} more)`}
+                {showAllRepos ? 'Show Less' : `Show More (${filteredAndSortedRepos.length - 4})`}
               </Button>
             </div>
           )}
