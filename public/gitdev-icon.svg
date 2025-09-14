@@ -1,0 +1,46 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Primary brand gradient using your app's green theme -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16A34A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803D;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Secondary gradient for subtle depth -->
+    <linearGradient id="secondary-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22C55E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16A34A;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Dark icon fill for contrast -->
+    <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1F2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Shadow for depth -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+    
+    <!-- Inner shadow for premium feel -->
+    <filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#FFFFFF" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <!-- Background rounded square matching header style -->
+  <rect width="192" height="192" rx="36" fill="url(#bg-gradient)" filter="url(#shadow)"/>
+  
+  <!-- Subtle gradient overlay for depth -->
+  <rect width="192" height="192" rx="36" fill="url(#secondary-gradient)" opacity="0.1"/>
+  
+  <!-- GitHub-inspired icon - scaled up 6x for 192x192 -->
+  <g transform="translate(48, 48)" fill="url(#icon-gradient)" filter="url(#inner-shadow)">
+    <!-- Main GitHub cat silhouette -->
+    <path d="M48 0C21.48 0 0 21.48 0 48c0 21.24 13.74 39.18 32.82 45.54 2.4.42 3.3-1.02 3.3-2.28 0-1.14-.06-4.92-.06-8.94-12.06 2.22-15.18-2.94-16.14-5.64-.54-1.38-2.88-5.64-4.92-6.78-1.68-.9-4.08-3.12-.06-3.18 3.78-.06 6.48 3.48 7.38 4.92 4.32 7.26 11.22 5.22 13.98 3.96.42-3.12 1.68-5.22 3.06-6.42-10.68-1.2-21.84-5.34-21.84-23.7 0-5.22 1.86-9.54 4.92-12.9-.48-1.2-2.16-6.12.48-12.72 0 0 4.02-1.26 13.2 4.92 3.84-1.08 7.92-1.62 12-1.62 4.08 0 8.16.54 12 1.62 9.18-6.24 13.2-4.92 13.2-4.92 2.64 6.6.96 11.52.48 12.72 3.06 3.36 4.92 7.62 4.92 12.9 0 18.42-11.22 22.5-21.9 23.7 1.74 1.5 3.24 4.38 3.24 8.88 0 6.42-.06 11.58-.06 13.2 0 1.26.9 2.76 3.3 2.28A48.013 48.013 0 0 0 96 48c0-26.52-21.48-48-48-48z"/>
+  </g>
+  
+  <!-- Subtle highlight for premium feel -->
+  <rect x="4" y="4" width="184" height="92" rx="32" fill="url(#secondary-gradient)" opacity="0.1"/>
+</svg>

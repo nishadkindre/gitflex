@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Shadcn-inspired CSS variables for light theme */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 142 76% 36%; /* Green primary */
+  --primary-foreground: 355 7% 97%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 142 76% 36%; /* Green ring to match primary */
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Shadcn-inspired CSS variables for dark theme */
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 142 71% 45%; /* Slightly lighter green for dark mode */
+  --primary-foreground: 144 61% 20%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 142 71% 45%; /* Green ring for dark mode */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* font-family: 'Inter', system-ui, -apple-system, sans-serif; */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Hide scrollbars globally for cleaner appearance */
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for webkit browsers */
+}
+
+/* Hide scrollbar for Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Ensure scroll functionality is preserved */
+* {
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* Focus styles */
+.focus\:ring-neo:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
+}
+
+/* Neomorphic button styles */
+.btn-neo {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  @apply shadow-neo hover:shadow-neo-lg active:shadow-neo-inset;
+  @apply bg-card text-card-foreground border border-border;
+}
+
+.dark .btn-neo {
+  @apply shadow-neo-dark hover:shadow-neo-dark-lg active:shadow-neo-dark-inset;
+}
+
+/* Neomorphic card styles */
+.card-neo {
+  @apply rounded-lg shadow-neo bg-card text-card-foreground border border-border;
+  @apply transition-all duration-300 hover:shadow-neo-lg;
+}
+
+.dark .card-neo {
+  @apply shadow-neo-dark hover:shadow-neo-dark-lg;
+}
+
+/* Neomorphic input styles */
+.input-neo {
+  @apply px-4 py-3 rounded-lg shadow-neo-inset bg-input text-foreground;
+  @apply border border-border outline-none placeholder:text-muted-foreground;
+  @apply focus:shadow-neo-inset-lg focus:ring-2 focus:ring-ring transition-all duration-200;
+}
+
+.dark .input-neo {
+  @apply shadow-neo-dark-inset focus:shadow-neo-dark-inset-lg;
+}
+
+/* Animation utilities */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #007aff, #34c759);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.backdrop-blur-neo {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
