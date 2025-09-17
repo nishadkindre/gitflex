@@ -104,6 +104,24 @@ export default {
         'neo-dark-xl': '16px 16px 32px rgba(0,0,0,0.3), -16px -16px 32px rgba(255,255,255,0.05)',
         'neo-dark-inset': 'inset 2px 2px 4px rgba(0,0,0,0.3), inset -2px -2px 4px rgba(255,255,255,0.05)',
         'neo-dark-inset-lg': 'inset 4px 4px 8px rgba(0,0,0,0.3), inset -4px -4px 8px rgba(255,255,255,0.05)',
+
+        // iOS 26 Liquid Glass Effects
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.05)',
+        'glass-dark': '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.15)',
+        'glass-lg': '0 12px 40px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.04)',
+        'glass-dark-lg': '0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.1)',
+
+        // Primary color enhanced shadows
+        'primary-glow': '0 4px 20px rgba(34, 197, 94, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1)',
+        'primary-glow-dark': '0 4px 20px rgba(34, 197, 94, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3)',
+        'primary-glow-lg': '0 8px 40px rgba(34, 197, 94, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)',
+        'primary-glow-dark-lg': '0 8px 40px rgba(34, 197, 94, 0.25), 0 4px 16px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15)',
+        
+        // Enhanced card shadows
+        'card-enhanced': '0 8px 32px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(34, 197, 94, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+        'card-enhanced-dark': '0 8px 32px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(34, 197, 94, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+        'card-enhanced-hover': '0 20px 64px rgba(0, 0, 0, 0.1), 0 8px 32px rgba(34, 197, 94, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+        'card-enhanced-hover-dark': '0 20px 64px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(34, 197, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

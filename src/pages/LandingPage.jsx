@@ -80,14 +80,36 @@ const HeroSection = ({ onSearch, isSearching }) => {
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {/* Hero Text */}
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }} className="space-y-6">
-          <motion.div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-secondary border border-border" whileHover={{ scale: 1.05 }}>
-            <Sparkles size={16} className="text-primary" />
-            <span className="text-sm font-medium text-muted-foreground">Flex 💪 Your GitHub Profile</span>
+          <motion.div 
+            className="inline-flex items-center space-x-2 px-6 py-3 rounded-full glass-badge" 
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <Sparkles size={18} className="text-primary" />
+            </motion.div>
+            <span className="text-sm font-semibold text-foreground/90">Flex 💪 Your GitHub Profile</span>
+            <motion.div 
+              className="w-2 h-2 bg-gradient-to-r from-primary to-green-600 rounded-full"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            />
           </motion.div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
             Transform Your
-            <span className="block bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">Developer Story</span>
+            <motion.span 
+              className="block bg-gradient-to-r from-primary via-green-600 to-emerald-500 bg-clip-text text-transparent"
+              initial={{ backgroundPosition: '0% 50%' }}
+              animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              Developer Story
+            </motion.span>
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">Create a beautiful, professional showcase of your GitHub profile</p>
@@ -96,7 +118,7 @@ const HeroSection = ({ onSearch, isSearching }) => {
         {/* Search Interface */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="relative max-w-lg mx-auto">
           <div className="relative">
-            <div className="flex items-center bg-card border border-border rounded-lg shadow-neo dark:shadow-neo-dark overflow-hidden">
+            <div className="flex items-center glass-card rounded-2xl overflow-hidden">
               <div className="flex items-center pl-4 text-muted-foreground">
                 <Github size={20} />
               </div>
@@ -105,14 +127,14 @@ const HeroSection = ({ onSearch, isSearching }) => {
                 placeholder="Enter GitHub username..."
                 value={username}
                 onChange={handleInputChange}
-                className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
+                className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground/70 outline-none text-base"
                 onKeyPress={e => e.key === 'Enter' && handleSearch()}
               />
-                <Button variant="default" onClick={() => handleSearch()} disabled={isSearching || !username.trim()} className="m-1 mr-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Button variant="default" onClick={() => handleSearch()} disabled={isSearching || !username.trim()} className="m-1 mr-2 bg-gradient-to-r from-primary to-green-600 hover:from-primary/90 hover:to-green-600/90 text-white border-0 shadow-primary-glow transition-all duration-300">
                   {/* Mobile-friendly button: icon-only on small screens, text+icon on md+ */}
                   {isSearching ? (
                     <div className="flex items-center">
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-foreground border-t-transparent mr-2"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
                       <span className="hidden md:inline">Searching...</span>
                     </div>
                   ) : (
@@ -129,7 +151,7 @@ const HeroSection = ({ onSearch, isSearching }) => {
                 </Button>
             </div>
 
-            {error && <p className="text-destructive text-sm mt-2 text-center">{error}</p>}
+            {error && <p className="text-destructive text-sm mt-3 text-center">{error}</p>}
 
             {/* Search Suggestions */}
             <AnimatePresence>
@@ -138,7 +160,7 @@ const HeroSection = ({ onSearch, isSearching }) => {
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-xl shadow-neo dark:shadow-neo-dark z-50 overflow-hidden backdrop-blur-sm bg-card/95"
+                  className="absolute top-full left-0 right-0 mt-2 glass-card rounded-2xl z-50 overflow-hidden"
                 >
                   <div className="p-2">
                     <div className="text-xs font-medium text-muted-foreground px-3 py-2 border-b border-border/30">

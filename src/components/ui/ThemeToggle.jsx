@@ -10,14 +10,14 @@ const ThemeToggle = ({ className = '' }) => {
     <motion.button
       onClick={toggleTheme}
       className={`
-        relative p-3 rounded-xl
-        bg-primary/10 hover:bg-primary/20 border border-primary/20
+        relative p-3 rounded-2xl glass-badge
         text-primary hover:text-primary/80
         transition-all duration-300
         group
         ${className}
       `}
       whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.05 }}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       <motion.div
@@ -31,11 +31,18 @@ const ThemeToggle = ({ className = '' }) => {
           scale: { duration: 0.3 }
         }}
       >
-        {theme === 'light' ? <Sun size={18} className="group-hover:drop-shadow-sm transition-all" /> : <Moon size={18} className="group-hover:drop-shadow-sm transition-all" />}
+        {theme === 'light' ? (
+          <Sun size={18} className="group-hover:drop-shadow-sm transition-all" />
+        ) : (
+          <Moon size={18} className="group-hover:drop-shadow-sm transition-all" />
+        )}
       </motion.div>
 
-      {/* Subtle glow effect */}
-      <motion.div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" whileHover={{ scale: 1.1 }} />
+      {/* Enhanced glow effect */}
+      <motion.div 
+        className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+        whileHover={{ scale: 1.1 }} 
+      />
     </motion.button>
   );
 };

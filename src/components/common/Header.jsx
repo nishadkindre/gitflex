@@ -6,16 +6,31 @@ import ThemeToggle from '../ui/ThemeToggle';
 
 const Header = () => {
   return (
-    <motion.header className="sticky top-0 z-50 backdrop-blur-sm bg-background/80 border-b border-border" initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
+    <motion.header 
+      className="sticky top-0 z-50 glass-header" 
+      initial={{ y: -100, opacity: 0 }} 
+      animate={{ y: 0, opacity: 1 }} 
+      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div whileTap={{ scale: 0.95 }}>
-            <Link to="/" className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors duration-200">
-              <div className="w-8 h-8 rounded-lg bg-primary shadow-sm flex items-center justify-center">
-                <Github size={16} className="text-primary-foreground" />
-              </div>
-              <span className="font-display font-bold text-xl bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">GitFlex</span>
+          <motion.div 
+            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
+            <Link to="/" className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors duration-300">
+              <motion.div 
+                className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-green-600 shadow-primary-glow flex items-center justify-center"
+                whileHover={{ rotate: 5, scale: 1.1 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                <Github size={16} className="text-white" />
+              </motion.div>
+              <span className="font-display font-bold text-xl bg-gradient-to-r from-primary via-green-600 to-emerald-500 bg-clip-text text-transparent">
+                GitFlex
+              </span>
             </Link>
           </motion.div>
 
@@ -43,7 +58,13 @@ const Header = () => {
 
           {/* Theme Toggle */}
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ThemeToggle />
+            </motion.div>
           </div>
         </div>
       </div>

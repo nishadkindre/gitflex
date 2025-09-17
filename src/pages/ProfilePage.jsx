@@ -15,13 +15,24 @@ import ContributionGraph from '../components/profile/ContributionGraph';
 const ErrorCard = ({ error, onRetry, username }) => {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl mx-auto">
-      <Card className="text-center p-8">
-        <AlertCircle size={48} className="mx-auto text-red-500 mb-4" />
-        <h2 className="text-xl font-semibold text-light-text dark:text-dark-text mb-2">{error.includes('not found') ? 'User Not Found' : 'Something went wrong'}</h2>
-        <p className="text-light-textSecondary dark:text-dark-textSecondary mb-6">
-          {error.includes('not found') ? `The user "${username}" could not be found on GitHub. Please check the username and try again.` : error}
+      <Card className="text-center p-8" variant="enhanced">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+        >
+          <AlertCircle size={56} className="mx-auto text-red-500 mb-6" />
+        </motion.div>
+        <h2 className="text-2xl font-bold text-foreground mb-3">
+          {error.includes('not found') ? 'User Not Found' : 'Something went wrong'}
+        </h2>
+        <p className="text-muted-foreground mb-8 leading-relaxed">
+          {error.includes('not found') 
+            ? `The user "${username}" could not be found on GitHub. Please check the username and try again.` 
+            : error
+          }
         </p>
-        <div className="space-x-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button variant="gradient" onClick={onRetry}>
             <RefreshCw size={16} className="mr-2" />
             Try Again

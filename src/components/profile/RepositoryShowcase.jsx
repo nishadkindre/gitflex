@@ -25,14 +25,14 @@ const RepositoryCard = ({ repo, index, onInfoClick }) => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05, duration: 0.5 }} whileHover={{ y: -4 }}>
-      <div className="h-full flex flex-col bg-card text-card-foreground border border-border rounded-lg shadow-neo dark:shadow-neo-dark p-6 transition-all duration-200">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05, duration: 0.5 }} whileHover={{ y: -6, scale: 1.02 }}>
+      <div className="h-full flex flex-col card-enhanced rounded-2xl p-0 transition-all duration-300">
         {/* Project Preview Image */}
-        <div className="mb-4 -mx-6 -mt-6">
+        <div className="mb-0">
           <img
             src={getProjectPreview(liveDemo)}
             alt={`${repo.name} preview`}
-            className="w-full h-48 object-cover rounded-t-lg"
+            className="w-full h-48 object-cover rounded-t-2xl"
             loading="lazy"
             onError={e => {
               // Fallback to GitHub OpenGraph if microlink fails
@@ -43,97 +43,99 @@ const RepositoryCard = ({ repo, index, onInfoClick }) => {
           />
         </div>
 
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center space-x-2 mb-2">
-              <motion.h3 className="font-semibold text-foreground truncate">{repo.name}</motion.h3>
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center space-x-2 mb-2">
+                <motion.h3 className="font-semibold text-foreground truncate text-lg">{repo.name}</motion.h3>
 
-              {/* Info Icon */}
-              <motion.button
-                onClick={() => onInfoClick && onInfoClick(repo)}
-                className="p-1 hover:bg-muted/50 rounded-full transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                title="View repository details"
-              >
-                <Info size={16} className="text-muted-foreground hover:text-foreground" />
-              </motion.button>
+                {/* Info Icon */}
+                <motion.button
+                  onClick={() => onInfoClick && onInfoClick(repo)}
+                  className="p-1 hover:bg-muted/50 rounded-full transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  title="View repository details"
+                >
+                  <Info size={16} className="text-muted-foreground hover:text-foreground" />
+                </motion.button>
 
-              {repo.private && <span className="px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded-md">Private</span>}
-              {repo.fork && <span className="px-2 py-1 text-xs bg-muted text-muted-foreground rounded-md">Fork</span>}
+                {repo.private && <span className="px-3 py-1 text-xs bg-red-100 dark:bg-red-900/30 text-red-600 rounded-full">Private</span>}
+                {repo.fork && <span className="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full">Fork</span>}
+              </div>
+
+              {repo.description && <p className="text-sm text-muted-foreground leading-relaxed">{truncateText(repo.description, 100)}</p>}
+            </div>
+          </div>
+
+          {/* Topics */}
+          {repo.topics && repo.topics.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {repo.topics.slice(0, 4).map(topic => (
+                <span key={topic} className="px-3 py-1 text-xs glass-badge rounded-full text-foreground">
+                  {topic}
+                </span>
+              ))}
+              {repo.topics.length > 4 && <span className="px-3 py-1 text-xs text-muted-foreground bg-muted/30 rounded-full">+{repo.topics.length - 4}</span>}
+            </div>
+          )}
+
+          {/* Stats */}
+          <div className="flex items-center justify-between mb-4 text-sm text-muted-foreground">
+            <div className="flex items-center space-x-4">
+              {primaryLanguage && (
+                <div className="flex items-center space-x-2 glass-badge rounded-full px-3 py-1">
+                  {getLanguageIcon(primaryLanguage, 14)}
+                  <span className="text-xs font-medium text-foreground">{primaryLanguage}</span>
+                </div>
+              )}
+
+              {repo.stargazers_count > 0 && (
+                <div className="flex items-center space-x-1">
+                  <Star size={14} className="text-yellow-500" />
+                  <span className="text-xs font-medium">{formatNumber(repo.stargazers_count)}</span>
+                </div>
+              )}
+
+              {repo.forks_count > 0 && (
+                <div className="flex items-center space-x-1">
+                  <GitFork size={14} className="text-blue-500" />
+                  <span className="text-xs font-medium">{formatNumber(repo.forks_count)}</span>
+                </div>
+              )}
             </div>
 
-            {repo.description && <p className="text-sm text-muted-foreground leading-relaxed">{truncateText(repo.description, 100)}</p>}
-          </div>
-        </div>
-
-        {/* Topics */}
-        {repo.topics && repo.topics.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-4">
-            {repo.topics.slice(0, 4).map(topic => (
-              <span key={topic} className="px-2 py-1 text-xs bg-muted/50 text-muted-foreground rounded-md">
-                {topic}
-              </span>
-            ))}
-            {repo.topics.length > 4 && <span className="px-2 py-1 text-xs text-muted-foreground">+{repo.topics.length - 4}</span>}
-          </div>
-        )}
-
-        {/* Stats */}
-        <div className="flex items-center justify-between mb-4 text-sm text-muted-foreground">
-          <div className="flex items-center space-x-4">
-            {primaryLanguage && (
-              <div className="flex items-center space-x-1">
-                {getLanguageIcon(primaryLanguage, 14)}
-                <span className="text-xs">{primaryLanguage}</span>
-              </div>
-            )}
-
-            {repo.stargazers_count > 0 && (
-              <div className="flex items-center space-x-1">
-                <Star size={12} />
-                <span className="text-xs">{formatNumber(repo.stargazers_count)}</span>
-              </div>
-            )}
-
-            {repo.forks_count > 0 && (
-              <div className="flex items-center space-x-1">
-                <GitFork size={12} />
-                <span className="text-xs">{formatNumber(repo.forks_count)}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Action Icons */}
-          <div className="flex items-center space-x-2">
-            {/* GitHub Link */}
-            <motion.a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 hover:bg-muted/50 rounded-full transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              title="View on GitHub"
-            >
-              {getSocialIcon('github', 16)}
-            </motion.a>
-
-            {/* Live Demo Link */}
-            {liveDemo && (
+            {/* Action Icons */}
+            <div className="flex items-center space-x-2">
+              {/* GitHub Link */}
               <motion.a
-                href={liveDemo}
+                href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 hover:bg-muted/50 rounded-full transition-colors"
+                className="p-2 glass-badge rounded-xl transition-colors hover:bg-primary/10"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                title="View Live Site"
+                title="View on GitHub"
               >
-                <ExternalLink size={16} className="text-primary" />
+                {getSocialIcon('github', 16)}
               </motion.a>
-            )}
+
+              {/* Live Demo Link */}
+              {liveDemo && (
+                <motion.a
+                  href={liveDemo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 glass-badge rounded-xl transition-colors hover:bg-primary/10"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  title="View Live Site"
+                >
+                  <ExternalLink size={16} className="text-primary" />
+                </motion.a>
+              )}
+            </div>
           </div>
         </div>
       </div>

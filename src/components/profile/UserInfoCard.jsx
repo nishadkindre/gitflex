@@ -83,56 +83,68 @@ const UserInfoCard = ({ user, repos, className = '' }) => {
       className={className}
       // className={`sticky top-8 h-fit ${className}`}
     >
-      <div className="bg-card text-card-foreground border border-border rounded-lg p-6 space-y-6 shadow-neo dark:shadow-neo-dark">
+      <div className="card-enhanced rounded-2xl p-6 space-y-6">
         {/* Avatar and Basic Info */}
         <div className="text-center space-y-4">
           <motion.div whileHover={{ scale: 1.05 }} className="relative inline-block">
-            <img src={user.avatar_url} alt={user.name || user.login} className="w-24 h-24 rounded-full mx-auto ring-2 ring-border" />
+            <img 
+              src={user.avatar_url} 
+              alt={user.name || user.login} 
+              className="w-28 h-28 rounded-3xl mx-auto ring-4 ring-primary/20 shadow-primary-glow" 
+            />
             {user.type === 'Organization' && (
-              <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-1">
-                <Users size={12} />
+              <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary to-green-600 text-white rounded-xl p-2 shadow-primary-glow">
+                <Users size={14} />
               </div>
             )}
           </motion.div>
 
           <div>
-            <h1 className="text-xl font-semibold text-foreground">{user.name || user.login}</h1>
-            <p className="text-muted-foreground text-sm">@{user.login}</p>
+            <h1 className="text-2xl font-bold text-foreground">{user.name || user.login}</h1>
+            <p className="text-muted-foreground text-base bg-muted/50 rounded-full px-4 py-1 inline-block">@{user.login}</p>
 
             {/* Follower/Following counts right under username */}
-            <div className="flex items-center justify-center gap-4 mt-3">
-              <div className="flex items-center gap-1 text-sm">
-                <Users size={14} className="text-muted-foreground" />
-                <span className="font-medium">{user.followers.toLocaleString()}</span>
-                <span className="text-muted-foreground">followers</span>
+            <div className="flex items-center justify-center gap-6 mt-4">
+              <div className="flex items-center gap-2 text-sm">
+                <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Users size={14} className="text-primary" />
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">{user.followers.toLocaleString()}</span>
+                  <span className="text-muted-foreground ml-1">followers</span>
+                </div>
               </div>
               <div className="w-1 h-1 bg-muted-foreground rounded-full"></div>
-              <div className="flex items-center gap-1 text-sm">
-                <UserPlus size={14} className="text-muted-foreground" />
-                <span className="font-medium">{user.following.toLocaleString()}</span>
-                <span className="text-muted-foreground">following</span>
+              <div className="flex items-center gap-2 text-sm">
+                <div className="w-8 h-8 rounded-xl bg-green-600/10 flex items-center justify-center">
+                  <UserPlus size={14} className="text-green-600" />
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">{user.following.toLocaleString()}</span>
+                  <span className="text-muted-foreground ml-1">following</span>
+                </div>
               </div>
             </div>
 
-            {user.bio && <p className="mt-3 text-muted-foreground text-sm leading-relaxed">{user.bio}</p>}
+            {user.bio && <p className="mt-4 text-muted-foreground text-sm leading-relaxed">{user.bio}</p>}
           </div>
         </div>
 
         {/* Quick Stats Row */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="text-center p-2 bg-muted/30 rounded-lg">
-            <Book size={16} className="mx-auto text-muted-foreground mb-1" />
-            <div className="text-sm font-medium">{user.public_repos}</div>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="text-center p-4 glass-badge rounded-2xl">
+            <Book size={18} className="mx-auto text-primary mb-2" />
+            <div className="text-lg font-bold text-foreground">{user.public_repos}</div>
             <div className="text-xs text-muted-foreground">repos</div>
           </div>
-          <div className="text-center p-2 bg-muted/30 rounded-lg">
-            <Star size={16} className="mx-auto text-muted-foreground mb-1" />
-            <div className="text-sm font-medium">{totalStars.toLocaleString()}</div>
+          <div className="text-center p-4 glass-badge rounded-2xl">
+            <Star size={18} className="mx-auto text-yellow-500 mb-2" />
+            <div className="text-lg font-bold text-foreground">{totalStars.toLocaleString()}</div>
             <div className="text-xs text-muted-foreground">stars</div>
           </div>
-          <div className="text-center p-2 bg-muted/30 rounded-lg">
-            <GitFork size={16} className="mx-auto text-muted-foreground mb-1" />
-            <div className="text-sm font-medium">{totalForks.toLocaleString()}</div>
+          <div className="text-center p-4 glass-badge rounded-2xl">
+            <GitFork size={18} className="mx-auto text-blue-500 mb-2" />
+            <div className="text-lg font-bold text-foreground">{totalForks.toLocaleString()}</div>
             <div className="text-xs text-muted-foreground">forks</div>
           </div>
         </div>
