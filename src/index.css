@@ -63,7 +63,6 @@
 body {
   margin: 0;
   padding: 0;
-  /* font-family: 'Inter', system-ui, -apple-system, sans-serif; */
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -71,35 +70,16 @@ body {
 
 /* Hide scrollbars globally for cleaner appearance */
 ::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for webkit browsers */
+  display: none;
 }
 
-/* Hide scrollbar for Firefox */
 html {
   scrollbar-width: none;
 }
 
-/* Ensure scroll functionality is preserved */
 * {
-  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-}
-
-/* Focus styles */
-.focus\:ring-neo:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
-}
-
-/* Neomorphic button styles */
-.btn-neo {
-  @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
-  @apply shadow-neo hover:shadow-neo-lg active:shadow-neo-inset;
-  @apply bg-card text-card-foreground border border-border;
-}
-
-.dark .btn-neo {
-  @apply shadow-neo-dark hover:shadow-neo-dark-lg active:shadow-neo-dark-inset;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Neomorphic card styles */
@@ -121,24 +101,6 @@ html {
 
 .dark .input-neo {
   @apply shadow-neo-dark-inset focus:shadow-neo-dark-inset-lg;
-}
-
-/* Animation utilities */
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-  66% {
-    transform: translateY(5px) rotate(-1deg);
-  }
 }
 
 /* Loading skeleton */
