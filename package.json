@@ -16,6 +16,7 @@
   ],
   "author": "Nishad Kindre <nishadkindre@gmail.com>",
   "license": "MIT",
+  "homepage": "https://gitflexx.vercel.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/gitflex/gitflex.git"

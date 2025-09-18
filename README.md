@@ -111,9 +111,9 @@ gitflex/
 5. **View contribution patterns** and coding statistics
 
 ### Example URLs
-- `https://gitflex.vercel.app/octocat` - View GitHub's mascot profile
-- `https://gitflex.vercel.app/torvalds` - View Linus Torvalds' profile
-- `https://gitflex.vercel.app/microsoft` - View Microsoft's organization
+- `https://gitflexx.vercel.app/octocat` - View GitHub's mascot profile
+- `https://gitflexx.vercel.app/torvalds` - View Linus Torvalds' profile
+- `https://gitflexx.vercel.app/microsoft` - View Microsoft's organization
 
 ## 🔧 Configuration
 
