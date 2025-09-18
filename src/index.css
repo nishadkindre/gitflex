@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Shadcn-inspired CSS variables for light theme */
-  --background: 0 0% 100%;
+  --background: 0 0% 98%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
@@ -35,9 +35,9 @@
 
 .dark {
   /* Shadcn-inspired CSS variables for dark theme */
-  --background: 240 10% 3.9%;
+  --background: 0 10% 0%;
   --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
+  --card: 240 10% 6%;
   --card-foreground: 0 0% 98%;
   --popover: 240 10% 3.9%;
   --popover-foreground: 0 0% 98%;
