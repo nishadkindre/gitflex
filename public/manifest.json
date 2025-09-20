@@ -1,0 +1,82 @@
+{
+  "name": "GitFlex - GitHub Profile Showcase",
+  "short_name": "GitFlex",
+  "description": "Flex your GitHub profile with beautiful visualizations and analytics. Showcase your coding journey with modern design and comprehensive GitHub integration.",
+  "version": "1.0.0",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#22c55e",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["developer tools", "productivity", "social", "portfolio"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/gitflex-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/gitflex-logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/gitflex-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Search Profile",
+      "short_name": "Search",
+      "description": "Search for a GitHub profile",
+      "url": "/?action=search",
+      "icons": [
+        {
+          "src": "/icons/search-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "About GitFlex",
+      "short_name": "About",
+      "description": "Learn more about GitFlex",
+      "url": "/about",
+      "icons": [
+        {
+          "src": "/icons/about-icon.png", 
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://gitflexx.vercel.app"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "capture_links": "new-client"
+}

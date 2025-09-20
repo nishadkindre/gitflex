@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-const Card = ({ children, className = '', hover = true, onClick, padding = 'p-6', ...props }) => {
-  const cardClasses = `
+const Card = memo(({ children, className = '', hover = true, onClick, padding = 'p-6', ...props }) => {
+  const cardClasses = useMemo(
+    () => `
     bg-card text-card-foreground border border-border rounded-lg shadow-neo dark:shadow-neo-dark ${padding} ${className}
     ${hover ? 'cursor-pointer' : ''}
     ${onClick ? 'cursor-pointer' : ''}
-  `;
+  `,
+    [className, hover, onClick, padding]
+  );
 
   const MotionComponent = motion.div;
 
@@ -22,9 +25,11 @@ const Card = ({ children, className = '', hover = true, onClick, padding = 'p-6'
       {children}
     </MotionComponent>
   );
-};
+});
 
-export const StatsCard = ({ title, value, subtitle, icon, color = 'text-primary', className = '' }) => {
+Card.displayName = 'Card';
+
+export const StatsCard = memo(({ title, value, subtitle, icon, color = 'text-primary', className = '' }) => {
   return (
     <Card className={`text-center ${className}`} padding="p-4">
       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.1, duration: 0.3, ease: 'easeOut' }} className="space-y-2">
@@ -38,7 +43,9 @@ export const StatsCard = ({ title, value, subtitle, icon, color = 'text-primary'
       </motion.div>
     </Card>
   );
-};
+});
+
+StatsCard.displayName = 'StatsCard';
 
 export const FeatureCard = ({ title, description, icon, className = '', delay = 0 }) => {
   return (
