@@ -108,25 +108,25 @@ const HeroSection = ({ onSearch, isSearching }) => {
                 className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
                 onKeyPress={e => e.key === 'Enter' && handleSearch()}
               />
-                <Button variant="default" onClick={() => handleSearch()} disabled={isSearching || !username.trim()} className="m-1 mr-2 bg-primary hover:bg-primary/90 text-primary-foreground">
-                  {/* Mobile-friendly button: icon-only on small screens, text+icon on md+ */}
-                  {isSearching ? (
-                    <div className="flex items-center">
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-foreground border-t-transparent mr-2"></div>
-                      <span className="hidden md:inline">Searching...</span>
-                    </div>
-                  ) : (
-                    <>
-                      <span className="md:flex items-center hidden">
-                        View Profile
-                        <ArrowRight size={16} className="ml-2" />
-                      </span>
-                      <span className="flex md:hidden items-center justify-center">
-                        <ArrowRight size={22} />
-                      </span>
-                    </>
-                  )}
-                </Button>
+              <Button variant="default" onClick={() => handleSearch()} disabled={isSearching || !username.trim()} className="m-1 mr-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+                {/* Mobile-friendly button: icon-only on small screens, text+icon on md+ */}
+                {isSearching ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-foreground border-t-transparent mr-2"></div>
+                    <span className="hidden md:inline">Searching...</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="md:flex items-center hidden">
+                      View Profile
+                      <ArrowRight size={16} className="ml-2" />
+                    </span>
+                    <span className="flex md:hidden items-center justify-center">
+                      <ArrowRight size={22} />
+                    </span>
+                  </>
+                )}
+              </Button>
             </div>
 
             {error && <p className="text-destructive text-sm mt-2 text-center">{error}</p>}

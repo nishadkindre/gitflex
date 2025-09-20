@@ -2,11 +2,14 @@ import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const Card = memo(({ children, className = '', hover = true, onClick, padding = 'p-6', ...props }) => {
-  const cardClasses = useMemo(() => `
+  const cardClasses = useMemo(
+    () => `
     bg-card text-card-foreground border border-border rounded-lg shadow-neo dark:shadow-neo-dark ${padding} ${className}
     ${hover ? 'cursor-pointer' : ''}
     ${onClick ? 'cursor-pointer' : ''}
-  `, [className, hover, onClick, padding]);
+  `,
+    [className, hover, onClick, padding]
+  );
 
   const MotionComponent = motion.div;
 

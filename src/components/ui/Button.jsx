@@ -5,26 +5,29 @@ const Button = forwardRef(({ children, variant = 'primary', size = 'md', disable
   const baseClasses =
     'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
-  const variants = useMemo(() => ({
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary',
-    outline: 'border-2 border-border text-foreground hover:bg-muted hover:text-foreground focus:ring-primary bg-transparent',
-    ghost: 'text-muted-foreground hover:text-foreground hover:bg-muted focus:ring-primary bg-transparent',
-    gradient: 'bg-gradient-to-r from-primary to-green-600 text-primary-foreground hover:from-primary/90 hover:to-green-600/90 focus:ring-primary',
-    default: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary'
-  }), []);
-
-  const sizes = useMemo(() => ({
-    sm: 'px-3 py-1.5 text-sm rounded-md',
-    md: 'px-4 py-2 text-sm rounded-lg',
-    lg: 'px-6 py-3 text-base rounded-lg',
-    xl: 'px-8 py-4 text-lg rounded-lg'
-  }), []);
-
-  const classes = useMemo(() => 
-    `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`,
-    [baseClasses, variants, variant, sizes, size, className]
+  const variants = useMemo(
+    () => ({
+      primary: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary',
+      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary',
+      outline: 'border-2 border-border text-foreground hover:bg-muted hover:text-foreground focus:ring-primary bg-transparent',
+      ghost: 'text-muted-foreground hover:text-foreground hover:bg-muted focus:ring-primary bg-transparent',
+      gradient: 'bg-gradient-to-r from-primary to-green-600 text-primary-foreground hover:from-primary/90 hover:to-green-600/90 focus:ring-primary',
+      default: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary'
+    }),
+    []
   );
+
+  const sizes = useMemo(
+    () => ({
+      sm: 'px-3 py-1.5 text-sm rounded-md',
+      md: 'px-4 py-2 text-sm rounded-lg',
+      lg: 'px-6 py-3 text-base rounded-lg',
+      xl: 'px-8 py-4 text-lg rounded-lg'
+    }),
+    []
+  );
+
+  const classes = useMemo(() => `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`, [baseClasses, variants, variant, sizes, size, className]);
 
   const buttonContent = (
     <>
