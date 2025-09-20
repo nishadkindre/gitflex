@@ -214,7 +214,7 @@ const ContributionGraph = ({ repos, user }) => {
             <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">GitHub Calendar</div>
           </div>
           <div className="overflow-x-auto">
-            <GitHubCalendar username={user.login} colorScheme={isDark ? 'dark' : 'light'} blockSize={11} />
+            <GitHubCalendar username={user.login} colorScheme={isDark ? 'dark' : 'light'} blockSize={12} />
           </div>
         </Card>
       )}
