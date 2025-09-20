@@ -1,7 +1,7 @@
-# GitFlex - GitHub Profile Showcase Platform
+# GitFlex - Flex 💪 Your GitHub Profile
 
 <div align="center">
-  <img src="./public/gitflex-logo.svg" alt="GitFlex Logo" width="120" height="120">
+  <img src="./public/gitdev-icon.svg" alt="GitFlex Logo" width="120" height="120">
   
   <h3>Transform your GitHub profile into a beautiful, professional showcase</h3>
   
@@ -9,6 +9,10 @@
   [![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3+-38B2AC.svg)](https://tailwindcss.com/)
   [![Vite](https://img.shields.io/badge/Vite-4+-646CFF.svg)](https://vitejs.dev/)
+
+  ![Screenshot_20-9-2025_13364_gitflexx vercel app](https://github.com/user-attachments/assets/acde29eb-2a0d-41fb-9931-a1a12dad7cda)
+
+
 </div>
 
 ## ✨ Features
