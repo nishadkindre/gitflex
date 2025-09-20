@@ -1,7 +1,7 @@
 # GitFlex - Flex 💪 Your GitHub Profile
 
 <div align="center">
-  <img src="./public/gitdev-icon.svg" alt="GitFlex Logo" width="120" height="120">
+  <img src="./public/gitflex-logo.svg" alt="GitFlex Logo" width="120" height="120">
   
   <h3>Transform your GitHub profile into a beautiful, professional showcase</h3>
   
@@ -51,7 +51,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/gitflex.git
+   git clone https://github.com/nishadkindre/gitflex.git
    cd gitflex
    ```
 
@@ -90,6 +90,7 @@
 
 ```
 gitflex/
+├── docs/               # Documentation files
 ├── public/              # Static assets
 ├── src/
 │   ├── components/      # Reusable UI components
@@ -147,10 +148,10 @@ To get a GitHub token:
 ## 🚢 Deployment
 
 ### Vercel (Recommended)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/gitflex)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nishadkindre/gitflex)
 
 ### Netlify
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/your-username/gitflex)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/nishadkindre/gitflex)
 
 ### Manual Deployment
 
@@ -237,19 +238,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📊 Stats
 
 <div align="center">
-  <img src="https://img.shields.io/github/stars/your-username/gitflex?style=social" alt="GitHub Stars">
-  <img src="https://img.shields.io/github/forks/your-username/gitflex?style=social" alt="GitHub Forks">
-  <img src="https://img.shields.io/github/issues/your-username/gitflex" alt="GitHub Issues">
-  <img src="https://img.shields.io/github/license/your-username/gitflex" alt="License">
+  <img src="https://img.shields.io/github/stars/nishadkindre/gitflex?style=social" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/nishadkindre/gitflex?style=social" alt="GitHub Forks">
+  <img src="https://img.shields.io/github/issues/nishadkindre/gitflex" alt="GitHub Issues">
+  <img src="https://img.shields.io/github/license/nishadkindre/gitflex" alt="License">
 </div>
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ by the GitFlex community</p>
+  <p>Made with ❤️ by Nishad Kindre</p>
   <p>
-    <a href="https://gitflex.vercel.app">Live Demo</a> •
-    <a href="https://github.com/your-username/gitflex/issues">Report Bug</a> •
-    <a href="https://github.com/your-username/gitflex/issues">Request Feature</a>
+    <a href="https://gitflexx.vercel.app">Live Demo</a> •
+    <a href="https://github.com/nishadkindre/gitflex/issues">Report Bug</a> •
+    <a href="https://github.com/nishadkindre/gitflex/issues">Request Feature</a>
   </p>
 </div>
