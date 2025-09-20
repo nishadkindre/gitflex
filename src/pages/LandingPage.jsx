@@ -108,7 +108,14 @@ const HeroSection = ({ onSearch, isSearching }) => {
                 className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
                 onKeyPress={e => e.key === 'Enter' && handleSearch()}
               />
-              <Button variant="default" onClick={() => handleSearch()} disabled={isSearching || !username.trim()} className="m-1 mr-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button
+                id="search-button"
+                aria-label="Search GitHub user"
+                variant="default"
+                onClick={() => handleSearch()}
+                disabled={isSearching || !username.trim()}
+                className="m-1 mr-2 bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
                 {/* Mobile-friendly button: icon-only on small screens, text+icon on md+ */}
                 {isSearching ? (
                   <div className="flex items-center">
