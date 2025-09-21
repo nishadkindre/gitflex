@@ -5,6 +5,7 @@ import Layout from './components/common/Layout';
 import LoadingSpinner from './components/ui/Loading';
 import { ToastContainer } from './components/ui/Toast';
 import { useToast } from './hooks/useGitHub';
+import ScrollToTop from './components/common/ScrollToTop';
 
 // Lazy load pages for better performance
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -71,6 +72,7 @@ function App() {
       <ThemeProvider>
         <ToastProvider>
           <Router>
+            <ScrollToTop />
             <Layout>
               <Suspense fallback={<PageLoader />}>
                 <Routes>
