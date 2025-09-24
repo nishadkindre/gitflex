@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Search, Github, Users, Star, TrendingUp, Sparkles, Zap, Eye, ArrowRight, CheckCircle } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -65,25 +64,17 @@ const HeroSection = ({ onSearch, isSearching }) => {
     <section className="relative py-20 px-4 pb-40">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-10">
-        <motion.div
-          className="absolute top-20 left-10 w-32 h-32 rounded-full bg-gradient-to-r from-light-accent to-light-success dark:from-dark-accent dark:to-dark-success"
-          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-gradient-to-r from-light-success to-light-accent dark:from-dark-success dark:to-dark-accent"
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-gradient-to-r from-light-accent to-light-success dark:from-dark-accent dark:to-dark-success" />
+        <div className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-gradient-to-r from-light-success to-light-accent dark:from-dark-success dark:to-dark-accent" />
       </div>
 
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {/* Hero Text */}
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }} className="space-y-6">
-          <motion.div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-secondary border border-border" whileHover={{ scale: 1.05 }}>
+        <div className="space-y-6">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-secondary border border-border">
             <Sparkles size={16} className="text-primary" />
             <span className="text-sm font-medium text-muted-foreground">Flex 💪 Your GitHub Profile</span>
-          </motion.div>
+          </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
             Transform Your
@@ -91,10 +82,10 @@ const HeroSection = ({ onSearch, isSearching }) => {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">Create a beautiful, professional showcase of your GitHub profile</p>
-        </motion.div>
+        </div>
 
         {/* Search Interface */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="relative max-w-lg mx-auto">
+        <div className="relative max-w-lg mx-auto">
           <div className="relative">
             <div className="flex items-center bg-card border border-border rounded-lg shadow-neo dark:shadow-neo-dark overflow-hidden">
               <div className="flex items-center pl-4 text-muted-foreground">
@@ -139,14 +130,8 @@ const HeroSection = ({ onSearch, isSearching }) => {
             {error && <p className="text-destructive text-sm mt-2 text-center">{error}</p>}
 
             {/* Search Suggestions */}
-            <AnimatePresence>
-              {showSuggestions && suggestions.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-xl shadow-neo dark:shadow-neo-dark z-50 overflow-hidden backdrop-blur-sm bg-card/95"
-                >
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-card/95 border border-border rounded-xl shadow-neo dark:shadow-neo-dark z-50 overflow-hidden backdrop-blur-sm">
                   <div className="p-2">
                     <div className="text-xs font-medium text-muted-foreground px-3 py-2 border-b border-border/30">
                       <span className="flex items-center">
@@ -155,15 +140,10 @@ const HeroSection = ({ onSearch, isSearching }) => {
                       </span>
                     </div>
                     {suggestions.map((suggestion, index) => (
-                      <motion.button
+                      <button
                         key={suggestion.id}
                         onClick={() => handleSuggestionClick(suggestion)}
                         className="w-full p-3 text-left hover:bg-muted/50 transition-all duration-300 flex items-center space-x-4 group rounded-lg mx-1 my-1"
-                        whileHover={{ backgroundColor: 'rgba(var(--muted), 0.8)' }}
-                        whileTap={{ scale: 0.98 }}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, type: 'spring', stiffness: 300 }}
                       >
                         <div className="relative">
                           <img
@@ -184,7 +164,7 @@ const HeroSection = ({ onSearch, isSearching }) => {
                           <div className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded-md">View Profile</div>
                           <ArrowRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
                         </div>
-                      </motion.button>
+                      </button>
                     ))}
                   </div>
                   <div className="px-4 py-2 bg-muted/20 border-t border-border/30">
@@ -192,12 +172,11 @@ const HeroSection = ({ onSearch, isSearching }) => {
                       Press <kbd className="px-1.5 py-0.5 text-xs bg-muted border border-border rounded">Enter</kbd> to search or click to select
                     </p>
                   </div>
-                </motion.div>
+                </div>
               )}
-            </AnimatePresence>
+            </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
     </section>
   );
 };
@@ -227,20 +206,15 @@ const HowItWorksSection = () => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-4 mb-16">
+        <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">How It Works</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Three steps to go from "meh" GitHub to "damn, impressive" portfolio</p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-12">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-              whileHover={{ y: -8 }}
               className="relative group"
             >
               {/* Connection Line */}
@@ -255,9 +229,9 @@ const HowItWorksSection = () => {
 
                 {/* Icon */}
                 <div className="mb-6 flex justify-center">
-                  <motion.div className="p-4 rounded-2xl bg-primary/10 text-primary" whileHover={{ scale: 1.1, rotate: 5 }} transition={{ duration: 0.3 }}>
+                  <div className="p-4 rounded-2xl bg-primary/10 text-primary">
                     {step.icon}
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -266,16 +240,16 @@ const HowItWorksSection = () => {
                   <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div className="text-center mt-16" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.8, duration: 0.6 }}>
+        <div className="text-center mt-16">
           <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground bg-muted/30 px-4 py-2 rounded-full">
             <Zap size={16} className="text-primary" />
             <span>Seriously, it takes like 30 seconds max</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -318,22 +292,17 @@ const WhatWeBuildSection = () => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-6 mb-16">
+        <div className="text-center space-y-6 mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">What We Actually Built</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Look, we're devs too. We know what sucks about showcasing your work online. So we built something that doesn't suck. Here's the honest breakdown:
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ y: -5 }}
               className="bg-card border border-border rounded-xl p-6 shadow-neo dark:shadow-neo-dark transition-all duration-300 hover:shadow-neo-lg dark:hover:shadow-neo-dark-lg"
             >
               <div className="space-y-4">
@@ -341,7 +310,7 @@ const WhatWeBuildSection = () => {
                 <h3 className="text-xl font-semibold text-foreground">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -386,22 +355,17 @@ const TechStackSection = () => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-6 mb-16">
+        <div className="text-center space-y-6 mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">The Stack We Picked</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             We chose tools that don't suck. Modern, fast, reliable - the stuff you'd actually want to work with. No enterprise bloat, no legacy nightmares.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {techStack.map((tech, index) => (
-            <motion.div
+            <div
               key={tech.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ scale: 1.02 }}
               className="bg-card border border-border rounded-xl p-6 shadow-neo dark:shadow-neo-dark transition-all duration-300 hover:shadow-neo-lg dark:hover:shadow-neo-dark-lg"
             >
               <div className="flex items-start space-x-4">
@@ -411,26 +375,26 @@ const TechStackSection = () => {
                   <p className="text-sm text-muted-foreground leading-relaxed">{tech.description}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div className="text-center mt-12" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.8, duration: 0.6 }}>
+        <div className="text-center mt-12">
           <div className="inline-flex items-center space-x-4 text-sm text-muted-foreground">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span>No tracking</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span>No data collection</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span>100% privacy respect</span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -446,16 +410,16 @@ const RecentProfilesSection = ({ onProfileClick }) => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-4 mb-12">
+        <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Recently Viewed Profiles</h2>
           <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary">Quick access to profiles you've explored recently</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {recentProfiles.slice(0, 10).map((profile, index) => (
-            <motion.div key={profile.login} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05, duration: 0.5 }}>
+            <div key={profile.login}>
               <ProfileCard profile={profile} onClick={() => onProfileClick(profile.login)} />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
