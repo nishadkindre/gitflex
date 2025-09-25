@@ -383,20 +383,10 @@ const ContributionGraph = ({ repos, user }) => {
                     color: isDark ? '#F9FAFB' : '#111827',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
                   }}
-                  formatter={(value, name, props) => {
-                    let label = name;
-                    if (name === 'Stars' || props.dataKey === 'stars') {
-                      label = 'Stars';
-                    } else if (name === 'Forks' || props.dataKey === 'forks') {
-                      label = 'Forks';
-                    } else if (name === 'Total' || props.dataKey === 'total') {
-                      label = 'Total';
-                    }
-                    return [
-                      <span className="font-semibold text-primary">{value}</span>,
-                      <span className="text-muted-foreground">{label}</span>
-                    ];
-                  }}
+                  formatter={(value, name) => [
+                    <span className="font-semibold text-primary">{value}</span>,
+                    <span className="text-muted-foreground">{name}</span>
+                  ]}
                 />
                 <Bar dataKey="stars" fill="#007AFF" name="Stars" radius={[2, 2, 0, 0]} />
                 <Bar dataKey="forks" fill="#34C759" name="Forks" radius={[2, 2, 0, 0]} />
