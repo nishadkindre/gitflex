@@ -81,17 +81,28 @@ const ContributionGraph = ({ repos, user }) => {
   const popularityData = useMemo(() => {
     if (!repos) return [];
 
-    const topRepos = repos
+    // First try to get repos with stars/forks
+    let topRepos = repos
       .filter(repo => repo.stargazers_count > 0 || repo.forks_count > 0)
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
       .slice(0, 8);
 
-    return topRepos.map(repo => ({
+    // If no repos have stars/forks, show the most recent ones for testing
+    if (topRepos.length === 0) {
+      topRepos = repos
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+        .slice(0, 8);
+    }
+
+    const result = topRepos.map(repo => ({
       name: repo.name.length > 12 ? repo.name.substring(0, 12) + '...' : repo.name,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      total: repo.stargazers_count + repo.forks_count
+      stars: repo.stargazers_count || 0,
+      forks: repo.forks_count || 0,
+      total: (repo.stargazers_count || 0) + (repo.forks_count || 0)
     }));
+
+    console.log('Popularity data generated:', result);
+    return result;
   }, [repos]);
 
   // Repository activity heatmap data for recharts
@@ -383,10 +394,28 @@ const ContributionGraph = ({ repos, user }) => {
                     color: isDark ? '#F9FAFB' : '#111827',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
                   }}
-                  formatter={(value, name) => [
-                    <span className="font-semibold text-primary">{value}</span>,
-                    <span className="text-primary">{name === 'stars' ? 'Stars' : name === 'forks' ? 'Forks' : 'Total'}</span>
-                  ]}
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
+                          <p className="text-sm font-medium text-foreground mb-2">{label}</p>
+                          {payload.map((entry, index) => (
+                            <div key={index} className="flex items-center justify-between gap-4">
+                              <div className="flex items-center gap-2">
+                                <div 
+                                  className="w-3 h-3 rounded-full" 
+                                  style={{ backgroundColor: entry.color }}
+                                />
+                                <span className="text-sm text-muted-foreground">{entry.name}</span>
+                              </div>
+                              <span className="text-sm font-semibold text-primary" style={{ color: entry.color }}>{entry.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
                 />
                 <Bar dataKey="stars" fill="#007AFF" name="Stars" radius={[2, 2, 0, 0]} />
                 <Bar dataKey="forks" fill="#34C759" name="Forks" radius={[2, 2, 0, 0]} />
