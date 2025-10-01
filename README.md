@@ -229,11 +229,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- [devb.io](https://devb.io/) for inspiration on design and layout
 - [GitHub API](https://docs.github.com/en/rest) for providing the data
-- [React](https://reactjs.org/) for the amazing framework
-- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
-- [Framer Motion](https://www.framer.com/motion/) for beautiful animations
-- [Lucide](https://lucide.dev/) for the icon system
+- [Vercel](https://vercel.com/) for free hosting and deployment
 
 ## 📊 Stats
 
