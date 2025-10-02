@@ -19,10 +19,10 @@
   "homepage": "https://gitflexx.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gitflex/gitflex.git"
+    "url": "https://github.com/nishadkindre/gitflex.git"
   },
   "bugs": {
-    "url": "https://github.com/gitflex/gitflex/issues"
+    "url": "https://github.com/nishadkindre/gitflex/issues"
   },
   "scripts": {
     "dev": "vite",
