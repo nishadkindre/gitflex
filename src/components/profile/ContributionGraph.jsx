@@ -89,9 +89,7 @@ const ContributionGraph = ({ repos, user }) => {
 
     // If no repos have stars/forks, show the most recent ones for testing
     if (topRepos.length === 0) {
-      topRepos = repos
-        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-        .slice(0, 8);
+      topRepos = repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)).slice(0, 8);
     }
 
     const result = topRepos.map(repo => ({
@@ -230,23 +228,89 @@ const ContributionGraph = ({ repos, user }) => {
         </Card>
       )}
 
-      {/* Programming Languages Distribution */}
-      {languageData.length > 0 && (
-        <Card className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-foreground">Language Distribution</h3>
-            <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">{languageData.length} Languages</div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Chart */}
-            <div className="h-56 flex items-center justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Programming Languages Distribution */}
+        {languageData.length > 0 && (
+          <Card className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-foreground">Language Distribution</h3>
+              <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">{languageData.length} Languages</div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Chart */}
+              <div className="h-56 flex items-center justify-center">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={languageData} cx="50%" cy="50%" outerRadius={70} innerRadius={35} paddingAngle={2} dataKey="value">
+                      {languageData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color || '#007AFF'} stroke={isDark ? '#1F2937' : '#FFFFFF'} strokeWidth={2} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '8px',
+                        color: isDark ? '#F9FAFB' : '#111827',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+                      }}
+                      formatter={(value, name) => [<span className="font-semibold text-primary">{value}%</span>, <span className="text-muted-foreground">{name}</span>]}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Language List */}
+              <div className="space-y-2">
+                {languageData.slice(0, 6).map((language, index) => (
+                  <motion.div
+                    key={language.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="group flex items-center justify-between p-2 rounded-lg hover:bg-muted/30 transition-all duration-200"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: language.color || '#007AFF' }} />
+                      <div className="text-sm">{getLanguageIcon(language.name, 16)}</div>
+                      <div>
+                        <div className="font-medium text-foreground text-sm">{language.name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {language.count} {language.count === 1 ? 'repo' : 'repos'}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="font-bold text-primary text-sm">{language.value}%</div>
+                  </motion.div>
+                ))}
+                {languageData.length > 6 && (
+                  <div className="text-center pt-1">
+                    <span className="text-xs text-muted-foreground">+{languageData.length - 6} more</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+        )}
+        {/* Repository Growth Over Time */}
+        {repoGrowthData.length > 0 && (
+          <Card className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-foreground">Repository Growth</h3>
+              <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">{repoGrowthData[repoGrowthData.length - 1]?.repositories || 0} Total</div>
+            </div>
+            <div className="h-56">
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={languageData} cx="50%" cy="50%" outerRadius={70} innerRadius={35} paddingAngle={2} dataKey="value">
-                    {languageData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color || '#007AFF'} stroke={isDark ? '#1F2937' : '#FFFFFF'} strokeWidth={2} />
-                    ))}
-                  </Pie>
+                <AreaChart data={repoGrowthData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorRepos" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#007AFF" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#007AFF" stopOpacity={0.02} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#374151' : '#E5E7EB'} horizontal={true} vertical={false} />
+                  <XAxis dataKey="year" stroke={isDark ? '#9CA3AF' : '#6B7280'} fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke={isDark ? '#9CA3AF' : '#6B7280'} fontSize={11} tickLine={false} axisLine={false} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
@@ -255,98 +319,33 @@ const ContributionGraph = ({ repos, user }) => {
                       color: isDark ? '#F9FAFB' : '#111827',
                       boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
                     }}
-                    formatter={(value, name) => [<span className="font-semibold text-primary">{value}%</span>, <span className="text-muted-foreground">{name}</span>]}
+                    labelFormatter={value => `Year: ${value}`}
+                    formatter={(value, name) => [
+                      <span className="font-semibold text-primary">{value}</span>,
+                      <span className="text-muted-foreground">{name === 'repositories' ? 'Total Repos' : 'New Repos'}</span>
+                    ]}
                   />
-                </PieChart>
+                  <Area
+                    type="monotone"
+                    dataKey="repositories"
+                    stroke="#007AFF"
+                    fillOpacity={1}
+                    fill="url(#colorRepos)"
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{
+                      r: 4,
+                      fill: '#007AFF',
+                      stroke: isDark ? '#1F2937' : '#FFFFFF',
+                      strokeWidth: 2
+                    }}
+                  />
+                </AreaChart>
               </ResponsiveContainer>
             </div>
-
-            {/* Language List */}
-            <div className="space-y-2">
-              {languageData.slice(0, 6).map((language, index) => (
-                <motion.div
-                  key={language.name}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="group flex items-center justify-between p-2 rounded-lg hover:bg-muted/30 transition-all duration-200"
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: language.color || '#007AFF' }} />
-                    <div className="text-sm">{getLanguageIcon(language.name, 16)}</div>
-                    <div>
-                      <div className="font-medium text-foreground text-sm">{language.name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {language.count} {language.count === 1 ? 'repo' : 'repos'}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="font-bold text-primary text-sm">{language.value}%</div>
-                </motion.div>
-              ))}
-              {languageData.length > 6 && (
-                <div className="text-center pt-1">
-                  <span className="text-xs text-muted-foreground">+{languageData.length - 6} more</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {/* Repository Growth Over Time */}
-      {repoGrowthData.length > 0 && (
-        <Card className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-foreground">Repository Growth</h3>
-            <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">{repoGrowthData[repoGrowthData.length - 1]?.repositories || 0} Total</div>
-          </div>
-          <div className="h-56">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={repoGrowthData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorRepos" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#007AFF" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#007AFF" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#374151' : '#E5E7EB'} horizontal={true} vertical={false} />
-                <XAxis dataKey="year" stroke={isDark ? '#9CA3AF' : '#6B7280'} fontSize={11} tickLine={false} axisLine={false} />
-                <YAxis stroke={isDark ? '#9CA3AF' : '#6B7280'} fontSize={11} tickLine={false} axisLine={false} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '8px',
-                    color: isDark ? '#F9FAFB' : '#111827',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
-                  }}
-                  labelFormatter={value => `Year: ${value}`}
-                  formatter={(value, name) => [
-                    <span className="font-semibold text-primary">{value}</span>,
-                    <span className="text-muted-foreground">{name === 'repositories' ? 'Total Repos' : 'New Repos'}</span>
-                  ]}
-                />
-                <Area
-                  type="monotone"
-                  dataKey="repositories"
-                  stroke="#007AFF"
-                  fillOpacity={1}
-                  fill="url(#colorRepos)"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{
-                    r: 4,
-                    fill: '#007AFF',
-                    stroke: isDark ? '#1F2937' : '#FFFFFF',
-                    strokeWidth: 2
-                  }}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-      )}
+          </Card>
+        )}
+      </div>
 
       {/* Repository Popularity Bubble Chart */}
       {popularityData.length > 0 && (
@@ -402,13 +401,12 @@ const ContributionGraph = ({ repos, user }) => {
                           {payload.map((entry, index) => (
                             <div key={index} className="flex items-center justify-between gap-4">
                               <div className="flex items-center gap-2">
-                                <div 
-                                  className="w-3 h-3 rounded-full" 
-                                  style={{ backgroundColor: entry.color }}
-                                />
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
                                 <span className="text-sm text-muted-foreground">{entry.name}</span>
                               </div>
-                              <span className="text-sm font-semibold text-primary" style={{ color: entry.color }}>{entry.value}</span>
+                              <span className="text-sm font-semibold text-primary" style={{ color: entry.color }}>
+                                {entry.value}
+                              </span>
                             </div>
                           ))}
                         </div>
