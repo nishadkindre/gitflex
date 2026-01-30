@@ -16,27 +16,67 @@ const githubAPI = axios.create({
 githubAPI.interceptors.request.use(
   config => {
     const token = import.meta.env.VITE_GITHUB_TOKEN;
-    if (token) {
-      config.headers.Authorization = `token ${token}`;
+    if (token && token !== 'your_github_personal_access_token_here' && token.trim() !== '') {
+      // Use Bearer token format for modern GitHub API
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  error => Promise.reject(error)
+  error => {
+    console.error('Request interceptor error:', error);
+    return Promise.reject(error);
+  }
 );
 
 // Add response interceptor for error handling
 githubAPI.interceptors.response.use(
   response => response,
   error => {
-    if (error.response?.status === 403 && error.response?.headers['x-ratelimit-remaining'] === '0') {
-      const resetTime = error.response.headers['x-ratelimit-reset'];
-      const resetDate = new Date(resetTime * 1000);
-      throw new Error(`Rate limit exceeded. Resets at ${resetDate.toLocaleTimeString()}`);
+    // Handle authentication errors
+    if (error.response?.status === 401) {
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
+      if (!token || token === 'your_github_personal_access_token_here') {
+        throw new Error('GitHub token not configured. Please set VITE_GITHUB_TOKEN in your .env file.');
+      } else {
+        throw new Error('Invalid GitHub token. Please check your VITE_GITHUB_TOKEN in your .env file.');
+      }
     }
 
+    // Handle rate limiting
+    if (error.response?.status === 403) {
+      const remainingRequests = error.response?.headers['x-ratelimit-remaining'];
+      const resetTime = error.response?.headers['x-ratelimit-reset'];
+      
+      if (remainingRequests === '0') {
+        const resetDate = new Date(resetTime * 1000);
+        throw new Error(`Rate limit exceeded. Resets at ${resetDate.toLocaleTimeString()}`);
+      } else {
+        throw new Error('Access forbidden. You may need a GitHub token for this request.');
+      }
+    }
+
+    // Handle not found
     if (error.response?.status === 404) {
       throw new Error('User not found');
     }
+
+    // Handle network errors
+    if (error.code === 'ENOTFOUND' || error.code === 'ENETUNREACH') {
+      throw new Error('Network error. Please check your internet connection.');
+    }
+
+    // Handle timeout
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('Request timeout. Please try again.');
+    }
+
+    // Log the error for debugging
+    console.error('GitHub API Error:', {
+      status: error.response?.status,
+      message: error.response?.data?.message,
+      url: error.config?.url,
+      headers: error.config?.headers
+    });
 
     throw error;
   }
@@ -278,6 +318,41 @@ export const githubService = {
       const response = await githubAPI.get('/rate_limit');
       return response.data;
     } catch (error) {
+      throw error;
+    }
+  },
+
+  // Test token validity and API connectivity
+  async testConnection() {
+    try {
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
+      
+      if (!token || token === 'your_github_personal_access_token_here' || token.trim() === '') {
+        // Test unauthenticated request
+        const response = await githubAPI.get('/rate_limit');
+        return {
+          authenticated: false,
+          valid: true,
+          rateLimit: response.data.rate
+        };
+      } else {
+        // Test authenticated request
+        const response = await githubAPI.get('/user');
+        return {
+          authenticated: true,
+          valid: true,
+          user: response.data.login,
+          rateLimit: await this.getRateLimit()
+        };
+      }
+    } catch (error) {
+      if (error.response?.status === 401) {
+        return {
+          authenticated: false,
+          valid: false,
+          error: 'Invalid token'
+        };
+      }
       throw error;
     }
   },

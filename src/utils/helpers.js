@@ -269,6 +269,7 @@ export const getThemeColors = isDark => {
 
 // Error utilities
 export const getErrorMessage = error => {
+  // Check for custom error messages first
   if (error.message) {
     return error.message;
   }
@@ -279,18 +280,39 @@ export const getErrorMessage = error => {
 
   if (error.response?.status) {
     switch (error.response.status) {
+      case 401:
+        return 'GitHub authentication failed. Please check your token configuration.';
+      case 403:
+        const remainingRequests = error.response?.headers['x-ratelimit-remaining'];
+        if (remainingRequests === '0') {
+          return 'GitHub API rate limit exceeded. Please wait or add a GitHub token.';
+        }
+        return 'Access forbidden. You may need a GitHub token for this request.';
       case 404:
         return 'User not found';
-      case 403:
-        return 'API rate limit exceeded';
+      case 422:
+        return 'Invalid request parameters';
       case 500:
-        return 'Server error occurred';
+        return 'GitHub server error occurred';
+      case 502:
+        return 'GitHub service temporarily unavailable';
+      case 503:
+        return 'GitHub service unavailable';
       default:
-        return 'An unexpected error occurred';
+        return `GitHub API error (${error.response.status})`;
     }
   }
 
-  return 'An error occurred';
+  // Handle network errors
+  if (error.code === 'ENOTFOUND') {
+    return 'Network error: Unable to connect to GitHub';
+  }
+
+  if (error.code === 'ECONNABORTED') {
+    return 'Request timeout: GitHub API took too long to respond';
+  }
+
+  return 'An unexpected error occurred while connecting to GitHub';
 };
 
 // Validation utilities
