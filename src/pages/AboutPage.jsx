@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Github, Zap, Palette, Smartphone, Shield, Rocket, Heart, Code2, Users, Star } from 'lucide-react';
 import { FeatureCard } from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import GitHubTokenStatus from '../components/ui/GitHubTokenStatus';
 
 const AboutPage = () => {
   const features = [
@@ -73,6 +74,16 @@ const AboutPage = () => {
             GitFlex transforms your GitHub profile into a beautiful, professional showcase using modern design principles and elegant data visualization. It's completely free, open source, and
             respects your privacy.
           </p>
+        </motion.div>
+
+        {/* GitHub API Status */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="max-w-2xl mx-auto"
+        >
+          <GitHubTokenStatus />
         </motion.div>
 
         {/* Stats */}

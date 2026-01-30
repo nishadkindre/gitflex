@@ -60,11 +60,26 @@
    npm install
    ```
 
-3. **Set up environment variables** (optional)
+3. **Set up environment variables** (optional but recommended)
    ```bash
    cp .env.example .env
-   # Edit .env and add your GitHub token if needed
    ```
+   
+   **GitHub Token Setup (Optional):**
+   - Visit [GitHub Settings → Personal Access Tokens](https://github.com/settings/tokens)
+   - Click "Generate new token (classic)"
+   - Give it a name like "GitFlex API Access"
+   - No scopes needed for public data access
+   - Copy the token and add it to your `.env` file:
+     ```env
+     VITE_GITHUB_TOKEN=ghp_your_token_here
+     ```
+   
+   **Rate Limits:**
+   - Without token: 60 requests/hour
+   - With token: 5000 requests/hour
+   
+   > **Note**: The app works without a token, but you may hit rate limits during heavy usage.
 
 4. **Start the development server**
    ```bash
