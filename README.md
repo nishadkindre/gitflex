@@ -10,9 +10,8 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3+-38B2AC.svg)](https://tailwindcss.com/)
   [![Vite](https://img.shields.io/badge/Vite-4+-646CFF.svg)](https://vitejs.dev/)
 
-  ![Screenshot_20-9-2025_13364_gitflexx vercel app](https://github.com/user-attachments/assets/acde29eb-2a0d-41fb-9931-a1a12dad7cda)
 
-
+  <img width="1755" height="2953" alt="image" src="https://github.com/user-attachments/assets/5941d00c-d50d-4cf3-a88d-2312e595a3cb" />
 </div>
 
 ## ✨ Features
