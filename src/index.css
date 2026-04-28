@@ -50,50 +50,50 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Shadcn-inspired CSS variables for light theme */
-  --background: 0 0% 98%;
-  --foreground: 240 10% 3.9%;
+  /* Light theme — DM Sans + warm cream + GitHub green */
+  --background: 38 25% 97%;
+  --foreground: 25 14% 12%;
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 25 14% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 142 76% 36%; /* Green primary */
-  --primary-foreground: 355 7% 97%;
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
+  --popover-foreground: 25 14% 12%;
+  --primary: 142 63% 32%; /* GitHub green — deep, rich */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 18% 92%;
+  --secondary-foreground: 25 14% 20%;
+  --muted: 38 18% 92%;
+  --muted-foreground: 30 7% 46%;
+  --accent: 38 18% 92%;
+  --accent-foreground: 25 14% 20%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 142 76% 36%; /* Green ring to match primary */
+  --border: 38 14% 87%;
+  --input: 38 14% 87%;
+  --ring: 142 63% 32%;
   --radius: 0.5rem;
 }
 
 .dark {
-  /* Shadcn-inspired CSS variables for dark theme */
-  --background: 0 10% 0%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 142 71% 45%; /* Slightly lighter green for dark mode */
-  --primary-foreground: 144 61% 20%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  /* Dark theme — warm deep charcoal + enhanced GitHub green */
+  --background: 30 8% 8%;
+  --foreground: 38 16% 88%;
+  --card: 30 8% 11%;
+  --card-foreground: 38 16% 88%;
+  --popover: 30 8% 11%;
+  --popover-foreground: 38 16% 88%;
+  --primary: 142 66% 50%; /* Brighter GitHub green for dark mode */
+  --primary-foreground: 144 61% 10%;
+  --secondary: 30 8% 15%;
+  --secondary-foreground: 38 16% 88%;
+  --muted: 30 8% 15%;
+  --muted-foreground: 35 8% 54%;
+  --accent: 30 8% 15%;
+  --accent-foreground: 38 16% 88%;
+  --destructive: 0 62.8% 40%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 142 71% 45%; /* Green ring for dark mode */
+  --border: 30 8% 19%;
+  --input: 30 8% 15%;
+  --ring: 142 66% 50%;
 }
 
 * {
@@ -145,13 +145,13 @@ html {
 
 /* Loading skeleton */
 .skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #f0ebe3 25%, #e4ddd5 50%, #f0ebe3 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
 }
 
 .dark .skeleton {
-  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background: linear-gradient(90deg, #1c1916 25%, #26221e 50%, #1c1916 75%);
   background-size: 200% 100%;
 }
 
@@ -166,7 +166,7 @@ html {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #007aff, #34c759);
+  background: linear-gradient(135deg, #1a7f37, #2da44e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

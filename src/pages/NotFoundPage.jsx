@@ -43,8 +43,8 @@ const NotFoundPage = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.6 }} className="space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Developer Not Found</h1>
-            <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary max-w-2xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground">Developer Not Found</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               The GitHub profile you're looking for doesn't exist or might have been moved. Let's help you find the right developer!
             </p>
           </motion.div>
@@ -52,7 +52,7 @@ const NotFoundPage = () => {
 
         {/* Search Section */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.6 }} className="space-y-6">
-          <h2 className="text-2xl font-semibold text-light-text dark:text-dark-text">Search for a GitHub User</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Search for a GitHub User</h2>
 
           <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
             <Input
@@ -74,7 +74,7 @@ const NotFoundPage = () => {
         {/* Recent Profiles */}
         {recentProfiles.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.6 }} className="space-y-6">
-            <h2 className="text-2xl font-semibold text-light-text dark:text-dark-text">Recently Viewed Profiles</h2>
+            <h2 className="text-2xl font-semibold text-foreground">Recently Viewed Profiles</h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
               {recentProfiles.map((profile, index) => (
@@ -88,7 +88,7 @@ const NotFoundPage = () => {
 
         {/* Popular Suggestions */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.6 }} className="space-y-6">
-          <h2 className="text-2xl font-semibold text-light-text dark:text-dark-text">Popular GitHub Profiles</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Popular GitHub Profiles</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
@@ -120,12 +120,12 @@ const NotFoundPage = () => {
                 className="card-neo p-6 text-center cursor-pointer"
                 onClick={() => navigate(`/${suggestion.username}`)}
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-neo bg-gradient-to-br from-light-accent to-light-success dark:from-dark-accent dark:to-dark-success text-white mb-4">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-neo bg-gradient-to-br from-primary to-green-500 text-white mb-4">
                   {suggestion.icon}
                 </div>
-                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{suggestion.name}</h3>
-                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mb-2">@{suggestion.username}</p>
-                <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary">{suggestion.description}</p>
+                <h3 className="font-semibold text-foreground mb-1">{suggestion.name}</h3>
+                <p className="text-sm text-muted-foreground mb-2">@{suggestion.username}</p>
+                <p className="text-xs text-muted-foreground">{suggestion.description}</p>
               </motion.div>
             ))}
           </div>

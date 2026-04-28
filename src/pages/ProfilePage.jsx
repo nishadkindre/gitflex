@@ -17,8 +17,8 @@ const ErrorCard = ({ error, onRetry, username }) => {
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl mx-auto">
       <Card className="text-center p-8">
         <AlertCircle size={48} className="mx-auto text-red-500 mb-4" />
-        <h2 className="text-xl font-semibold text-light-text dark:text-dark-text mb-2">{error.includes('not found') ? 'User Not Found' : 'Something went wrong'}</h2>
-        <p className="text-light-textSecondary dark:text-dark-textSecondary mb-6">
+        <h2 className="text-xl font-semibold text-foreground mb-2">{error.includes('not found') ? 'User Not Found' : 'Something went wrong'}</h2>
+        <p className="text-muted-foreground mb-6">
           {error.includes('not found') ? `The user "${username}" could not be found on GitHub. Please check the username and try again.` : error}
         </p>
         <div className="space-x-4">

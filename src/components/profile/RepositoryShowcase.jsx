@@ -381,7 +381,7 @@ const FilterControls = ({ filters, onFiltersChange, languages, totalCount }) => 
         </div>
         
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
+          <span className="text-sm text-muted-foreground">
             {totalCount} repositories
           </span>
           <Button
@@ -405,7 +405,7 @@ const FilterControls = ({ filters, onFiltersChange, languages, totalCount }) => 
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-light-text dark:text-dark-text mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   Sort by
                 </label>
                 <select
@@ -422,7 +422,7 @@ const FilterControls = ({ filters, onFiltersChange, languages, totalCount }) => 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-light-text dark:text-dark-text mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   Type
                 </label>
                 <select
@@ -439,7 +439,7 @@ const FilterControls = ({ filters, onFiltersChange, languages, totalCount }) => 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-light-text dark:text-dark-text mb-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
                   Language
                 </label>
                 <select
@@ -543,9 +543,9 @@ const RepositoryShowcase = ({ repos, loading }) => {
   if (!repos || repos.length === 0) {
     return (
       <div className="text-center py-12">
-        <Code size={48} className="mx-auto text-light-textSecondary dark:text-dark-textSecondary mb-4" />
-        <h3 className="text-lg font-medium text-light-text dark:text-dark-text mb-2">No repositories found</h3>
-        <p className="text-light-textSecondary dark:text-dark-textSecondary">This user doesn't have any public repositories yet.</p>
+        <Code size={48} className="mx-auto text-muted-foreground mb-4" />
+        <h3 className="text-lg font-medium text-foreground mb-2">No repositories found</h3>
+        <p className="text-muted-foreground">This user doesn't have any public repositories yet.</p>
       </div>
     );
   }
@@ -553,16 +553,16 @@ const RepositoryShowcase = ({ repos, loading }) => {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">Projects</h2>
+        <h2 className="text-2xl font-bold text-foreground">Projects</h2>
       </div>
 
       <FilterControls filters={filters} onFiltersChange={setFilters} languages={languages} totalCount={repos.length} />
 
       {filteredAndSortedRepos.length === 0 ? (
         <div className="text-center py-12">
-          <Search size={48} className="mx-auto text-light-textSecondary dark:text-dark-textSecondary mb-4" />
-          <h3 className="text-lg font-medium text-light-text dark:text-dark-text mb-2">No repositories match your filters</h3>
-          <p className="text-light-textSecondary dark:text-dark-textSecondary">Try adjusting your search criteria or clearing the filters.</p>
+          <Search size={48} className="mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">No repositories match your filters</h3>
+          <p className="text-muted-foreground">Try adjusting your search criteria or clearing the filters.</p>
         </div>
       ) : (
         <>
