@@ -42,19 +42,33 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom green-based theme colors
+        // Enhanced GitHub green palette
         green: {
           50: '#f0fdf4',
           100: '#dcfce7',
           200: '#bbf7d0',
           300: '#86efac',
           400: '#4ade80',
-          500: '#22c55e',  // Primary green
+          500: '#22c55e',
           600: '#16a34a',
           700: '#15803d',
           800: '#166534',
           900: '#14532d',
           950: '#052e16',
+        },
+        // Emerald palette
+        emerald: {
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
         },
         // GitHub brand colors
         github: {
@@ -66,8 +80,8 @@ export default {
         }
       },
       fontFamily: {
-        'sans': ['Lexend', 'system-ui', 'sans-serif'],
-        'display': ['Lexend', 'system-ui', 'sans-serif'],
+        'sans': ['DM Sans', 'Lexend', 'system-ui', 'sans-serif'],
+        'display': ['DM Sans', 'Lexend', 'system-ui', 'sans-serif'],
         'mono': ['JetBrains Mono', 'Monaco', 'Menlo', 'monospace'],
       },
       fontSize: {
@@ -98,12 +112,12 @@ export default {
         'neo-inset-lg': 'inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.7)',
         
         // Neomorphism shadows for dark mode
-        'neo-dark-sm': '2px 2px 4px rgba(0,0,0,0.3), -2px -2px 4px rgba(255,255,255,0.05)',
-        'neo-dark': '4px 4px 8px rgba(0,0,0,0.3), -4px -4px 8px rgba(255,255,255,0.05)',
-        'neo-dark-lg': '8px 8px 16px rgba(0,0,0,0.3), -8px -8px 16px rgba(255,255,255,0.05)',
-        'neo-dark-xl': '16px 16px 32px rgba(0,0,0,0.3), -16px -16px 32px rgba(255,255,255,0.05)',
-        'neo-dark-inset': 'inset 2px 2px 4px rgba(0,0,0,0.3), inset -2px -2px 4px rgba(255,255,255,0.05)',
-        'neo-dark-inset-lg': 'inset 4px 4px 8px rgba(0,0,0,0.3), inset -4px -4px 8px rgba(255,255,255,0.05)',
+        'neo-dark-sm': '2px 2px 4px rgba(0,0,0,0.4), -1px -1px 3px rgba(255,255,255,0.03)',
+        'neo-dark': '4px 4px 10px rgba(0,0,0,0.4), -2px -2px 6px rgba(255,255,255,0.03)',
+        'neo-dark-lg': '8px 8px 20px rgba(0,0,0,0.45), -4px -4px 10px rgba(255,255,255,0.04)',
+        'neo-dark-xl': '16px 16px 36px rgba(0,0,0,0.5), -8px -8px 16px rgba(255,255,255,0.04)',
+        'neo-dark-inset': 'inset 2px 2px 5px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.03)',
+        'neo-dark-inset-lg': 'inset 4px 4px 10px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(255,255,255,0.04)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

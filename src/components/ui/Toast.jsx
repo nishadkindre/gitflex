@@ -41,13 +41,13 @@ const Toast = ({ toast, onClose }) => {
       <Icon className={`w-5 h-5 ${colors[toast.type]} flex-shrink-0 mt-0.5`} />
 
       <div className="flex-1 min-w-0">
-        {toast.title && <h4 className="font-medium text-light-text dark:text-dark-text text-sm">{toast.title}</h4>}
-        <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mt-1">{toast.message}</p>
+        {toast.title && <h4 className="font-medium text-foreground text-sm">{toast.title}</h4>}
+        <p className="text-sm text-muted-foreground mt-1">{toast.message}</p>
       </div>
 
       <motion.button
         onClick={onClose}
-        className="flex-shrink-0 text-light-textSecondary dark:text-dark-textSecondary hover:text-light-text dark:hover:text-dark-text transition-colors duration-200"
+        className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors duration-200"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >

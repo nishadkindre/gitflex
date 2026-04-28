@@ -60,17 +60,17 @@ const AboutPage = () => {
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto px-4 text-center space-y-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="space-y-6">
-          <div className="inline-flex items-center space-x-3 px-6 py-3 rounded-full bg-light-surface dark:bg-dark-surface shadow-neo dark:shadow-neo-dark">
-            <Github size={24} className="text-light-accent dark:text-dark-accent" />
-            <span className="font-semibold text-light-text dark:text-dark-text text-lg">GitFlex</span>
+          <div className="inline-flex items-center space-x-3 px-6 py-3 rounded-full bg-secondary shadow-neo dark:shadow-neo-dark">
+            <Github size={24} className="text-primary" />
+            <span className="font-semibold text-foreground text-lg">GitFlex</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-light-text dark:text-dark-text leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
             Showcase Your
             <span className="block gradient-text">Developer Journey</span>
           </h1>
 
-          <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             GitFlex transforms your GitHub profile into a beautiful, professional showcase using modern design principles and elegant data visualization. It's completely free, open source, and
             respects your privacy.
           </p>
@@ -96,9 +96,9 @@ const AboutPage = () => {
               transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
               className="card-neo p-4 text-center"
             >
-              <stat.icon size={24} className="mx-auto text-light-accent dark:text-dark-accent mb-2" />
-              <div className="font-bold text-xl text-light-text dark:text-dark-text">{stat.value}</div>
-              <div className="text-sm text-light-textSecondary dark:text-dark-textSecondary">{stat.label}</div>
+              <stat.icon size={24} className="mx-auto text-primary mb-2" />
+              <div className="font-bold text-xl text-foreground">{stat.value}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -114,11 +114,11 @@ const AboutPage = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Our Mission</h2>
-            <p className="text-lg text-light-textSecondary dark:text-dark-textSecondary leading-relaxed">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Our Mission</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
               We believe every developer has a unique story to tell. GitHub profiles contain amazing data about your coding journey, but the default interface doesn't do justice to your achievements.
             </p>
-            <p className="text-lg text-light-textSecondary dark:text-dark-textSecondary leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               GitFlex was created to bridge this gap by providing a beautiful, modern interface that highlights your skills, contributions, and projects in a way that truly represents your developer
               identity.
             </p>
@@ -134,32 +134,32 @@ const AboutPage = () => {
           </div>
 
           <motion.div className="relative" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
-            <div className="card-neo p-8 bg-gradient-to-br from-light-accent/10 to-light-success/10 dark:from-dark-accent/10 dark:to-dark-success/10">
+            <div className="card-neo p-8 bg-gradient-to-br from-primary/10 to-green-500/10">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-light-accent to-light-success dark:from-dark-accent dark:to-dark-success" />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-green-500" />
                   <div>
-                    <div className="h-4 bg-light-surface dark:bg-dark-surface rounded w-24 mb-2" />
-                    <div className="h-3 bg-light-bg dark:bg-dark-bg rounded w-16" />
+                    <div className="h-4 bg-muted rounded w-24 mb-2" />
+                    <div className="h-3 bg-muted/60 rounded w-16" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <div className="h-3 bg-light-surface dark:bg-dark-surface rounded w-full" />
-                  <div className="h-3 bg-light-surface dark:bg-dark-surface rounded w-4/5" />
-                  <div className="h-3 bg-light-surface dark:bg-dark-surface rounded w-3/5" />
+                  <div className="h-3 bg-muted rounded w-full" />
+                  <div className="h-3 bg-muted rounded w-4/5" />
+                  <div className="h-3 bg-muted rounded w-3/5" />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <div className="card-neo p-2 text-center">
-                    <div className="h-6 bg-light-bg dark:bg-dark-bg rounded mb-1" />
-                    <div className="h-2 bg-light-surface dark:bg-dark-surface rounded" />
+                    <div className="h-6 bg-muted/60 rounded mb-1" />
+                    <div className="h-2 bg-muted rounded" />
                   </div>
                   <div className="card-neo p-2 text-center">
-                    <div className="h-6 bg-light-bg dark:bg-dark-bg rounded mb-1" />
-                    <div className="h-2 bg-light-surface dark:bg-dark-surface rounded" />
+                    <div className="h-6 bg-muted/60 rounded mb-1" />
+                    <div className="h-2 bg-muted rounded" />
                   </div>
                   <div className="card-neo p-2 text-center">
-                    <div className="h-6 bg-light-bg dark:bg-dark-bg rounded mb-1" />
-                    <div className="h-2 bg-light-surface dark:bg-dark-surface rounded" />
+                    <div className="h-6 bg-muted/60 rounded mb-1" />
+                    <div className="h-2 bg-muted rounded" />
                   </div>
                 </div>
               </div>
@@ -171,8 +171,8 @@ const AboutPage = () => {
       {/* Features Section */}
       <section className="max-w-7xl mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Why Choose GitFlex?</h2>
-          <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Why Choose GitFlex?</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover the features that make GitFlex the perfect platform for showcasing your developer profile
           </p>
         </motion.div>
@@ -187,8 +187,8 @@ const AboutPage = () => {
       {/* Tech Stack Section */}
       <section className="max-w-6xl mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Built with Modern Technologies</h2>
-          <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary">We use the latest and most reliable technologies to ensure the best experience</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Built with Modern Technologies</h2>
+          <p className="text-xl text-muted-foreground">We use the latest and most reliable technologies to ensure the best experience</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -201,12 +201,12 @@ const AboutPage = () => {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="card-neo p-6 flex items-start space-x-4"
             >
-              <div className="w-12 h-12 rounded-neo bg-gradient-to-br from-light-accent to-light-success dark:from-dark-accent dark:to-dark-success flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-neo bg-gradient-to-br from-primary to-green-500 flex items-center justify-center flex-shrink-0">
                 <Code2 size={20} className="text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-light-text dark:text-dark-text mb-1">{tech.name}</h3>
-                <p className="text-light-textSecondary dark:text-dark-textSecondary text-sm">{tech.description}</p>
+                <h3 className="font-semibold text-foreground mb-1">{tech.name}</h3>
+                <p className="text-muted-foreground text-sm">{tech.description}</p>
               </div>
             </motion.div>
           ))}
@@ -214,11 +214,11 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-light-surface dark:bg-dark-surface">
+      <section className="bg-secondary/30">
         <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-light-text dark:text-dark-text">Ready to Showcase Your Profile?</h2>
-            <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to Showcase Your Profile?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Join thousands of developers who are already using GitFlex to present their work in the best possible way
             </p>
           </motion.div>

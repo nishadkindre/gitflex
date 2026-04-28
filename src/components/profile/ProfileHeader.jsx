@@ -59,12 +59,12 @@ const ProfileHeader = ({ user, repos }) => {
           {/* Basic Info */}
           <div className="flex-1 space-y-4">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-              <h1 className="text-3xl lg:text-4xl font-bold text-light-text dark:text-dark-text">{user.name || user.login}</h1>
-              <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary">@{user.login}</p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground">{user.name || user.login}</h1>
+              <p className="text-xl text-muted-foreground">@{user.login}</p>
             </motion.div>
 
             {user.bio && (
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-light-text dark:text-dark-text leading-relaxed max-w-2xl">
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-foreground leading-relaxed max-w-2xl">
                 {user.bio}
               </motion.p>
             )}
@@ -74,7 +74,7 @@ const ProfileHeader = ({ user, repos }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap items-center gap-4 text-sm text-light-textSecondary dark:text-dark-textSecondary"
+              className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground"
             >
               {user.location && (
                 <div className="flex items-center space-x-2">
@@ -93,7 +93,7 @@ const ProfileHeader = ({ user, repos }) => {
               {user.email && (
                 <div className="flex items-center space-x-2">
                   <Mail size={16} />
-                  <a href={`mailto:${user.email}`} className="hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-200">
+                  <a href={`mailto:${user.email}`} className="hover:text-primary transition-colors duration-200">
                     {user.email}
                   </a>
                 </div>
@@ -106,7 +106,7 @@ const ProfileHeader = ({ user, repos }) => {
                     href={user.blog.startsWith('http') ? user.blog : `https://${user.blog}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-200 flex items-center space-x-1"
+                    className="hover:text-primary transition-colors duration-200 flex items-center space-x-1"
                   >
                     <span>{user.blog.replace(/^https?:\/\//, '')}</span>
                     <ExternalLink size={12} />

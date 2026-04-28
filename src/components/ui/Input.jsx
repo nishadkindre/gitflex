@@ -28,7 +28,7 @@ const Input = forwardRef(({ label, error, helperText, className = '', containerC
 
         {rightIcon && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-            <div className="text-light-textSecondary dark:text-dark-textSecondary">{rightIcon}</div>
+            <div className="text-muted-foreground">{rightIcon}</div>
           </div>
         )}
       </div>
@@ -39,7 +39,7 @@ const Input = forwardRef(({ label, error, helperText, className = '', containerC
         </motion.p>
       )}
 
-      {helperText && !error && <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">{helperText}</p>}
+      {helperText && !error && <p className="text-sm text-muted-foreground">{helperText}</p>}
     </motion.div>
   );
 });

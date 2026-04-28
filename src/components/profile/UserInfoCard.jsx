@@ -87,7 +87,7 @@ const UserInfoCard = ({ user, repos, className = '' }) => {
         {/* Avatar and Basic Info */}
         <div className="text-center space-y-4">
           <motion.div whileHover={{ scale: 1.05 }} className="relative inline-block">
-            <img src={user.avatar_url} alt={user.name || user.login} className="w-24 h-24 rounded-full mx-auto ring-2 ring-border" />
+            <img src={user.avatar_url} alt={user.name || user.login} className="w-24 h-24 rounded-full mx-auto ring-2 ring-primary/30" />
             {user.type === 'Organization' && (
               <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-1">
                 <Users size={12} />
