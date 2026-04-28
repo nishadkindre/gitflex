@@ -115,6 +115,7 @@ body {
 
 html {
   scrollbar-width: none;
+  overflow-x: hidden;
 }
 
 * {
