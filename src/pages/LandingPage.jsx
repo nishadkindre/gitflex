@@ -6,8 +6,8 @@ import Button from '../components/ui/Button';
 import { FeatureCard, ProfileCard } from '../components/ui/Card';
 import { githubService } from '../services/githubService';
 import { validateGitHubUsername, getStoredProfiles, addToStoredProfiles, debounce } from '../utils/helpers';
-import profilePreviewLight from '../assets/nishad-kindre-gitflex-light-mode.jpeg';
-import profilePreviewDark from '../assets/nishad-kindre-gitflex-dark-mode.jpeg';
+import profilePreviewLight from '../assets/new-design/profile-light.jpeg';
+import profilePreviewDark from '../assets/new-design/profile-dark.jpeg';
 import { useTheme } from '../context/ThemeContext';
 
 const HeroSection = ({ onSearch, isSearching }) => {
