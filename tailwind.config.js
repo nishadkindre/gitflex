@@ -80,8 +80,8 @@ export default {
         }
       },
       fontFamily: {
-        'sans': ['DM Sans', 'Lexend', 'system-ui', 'sans-serif'],
-        'display': ['DM Sans', 'Lexend', 'system-ui', 'sans-serif'],
+        'sans': ['DM Sans', 'system-ui', 'sans-serif'],
+        'display': ['DM Sans', 'system-ui', 'sans-serif'],
         'mono': ['JetBrains Mono', 'Monaco', 'Menlo', 'monospace'],
       },
       fontSize: {
