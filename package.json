@@ -37,7 +37,6 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "axios": "^1.12.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.544.0",
@@ -64,6 +63,7 @@
     "tailwindcss": "^3.4.17",
     "vite": "^7.1.2",
     "vite-bundle-analyzer": "^1.2.3",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-pwa": "^1.0.3"
   },
   "engines": {
