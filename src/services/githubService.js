@@ -1,107 +1,101 @@
-import axios from 'axios';
-
 const BASE_URL = 'https://api.github.com';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_PREFIX = 'gf_cache_';
 
-// Create axios instance with default config
-const githubAPI = axios.create({
-  baseURL: BASE_URL,
-  timeout: 10000,
-  headers: {
+// Build request headers, injecting auth token if available
+const getHeaders = () => {
+  const headers = {
     Accept: 'application/vnd.github.v3+json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+  };
+  const token = import.meta.env.VITE_GITHUB_TOKEN;
+  if (token && token !== 'your_github_personal_access_token_here' && token.trim() !== '') {
+    headers.Authorization = `Bearer ${token}`;
   }
-});
+  return headers;
+};
 
-// Add request interceptor for authentication if token exists
-githubAPI.interceptors.request.use(
-  config => {
+// Translate HTTP error responses into friendly thrown errors
+const handleResponse = async (response, url) => {
+  if (response.status === 401) {
     const token = import.meta.env.VITE_GITHUB_TOKEN;
-    if (token && token !== 'your_github_personal_access_token_here' && token.trim() !== '') {
-      // Use Bearer token format for modern GitHub API
-      config.headers.Authorization = `Bearer ${token}`;
+    if (!token || token === 'your_github_personal_access_token_here') {
+      throw new Error('GitHub token not configured. Please set VITE_GITHUB_TOKEN in your .env file.');
     }
-    return config;
-  },
-  error => {
-    console.error('Request interceptor error:', error);
-    return Promise.reject(error);
+    throw new Error('Invalid GitHub token. Please check your VITE_GITHUB_TOKEN in your .env file.');
   }
-);
 
-// Add response interceptor for error handling
-githubAPI.interceptors.response.use(
-  response => response,
-  error => {
-    // Handle authentication errors
-    if (error.response?.status === 401) {
-      const token = import.meta.env.VITE_GITHUB_TOKEN;
-      if (!token || token === 'your_github_personal_access_token_here') {
-        throw new Error('GitHub token not configured. Please set VITE_GITHUB_TOKEN in your .env file.');
-      } else {
-        throw new Error('Invalid GitHub token. Please check your VITE_GITHUB_TOKEN in your .env file.');
-      }
+  if (response.status === 403) {
+    const remaining = response.headers.get('x-ratelimit-remaining');
+    const reset = response.headers.get('x-ratelimit-reset');
+    if (remaining === '0') {
+      const resetDate = new Date(reset * 1000);
+      throw new Error(`Rate limit exceeded. Resets at ${resetDate.toLocaleTimeString()}`);
     }
+    throw new Error('Access forbidden. You may need a GitHub token for this request.');
+  }
 
-    // Handle rate limiting
-    if (error.response?.status === 403) {
-      const remainingRequests = error.response?.headers['x-ratelimit-remaining'];
-      const resetTime = error.response?.headers['x-ratelimit-reset'];
-      
-      if (remainingRequests === '0') {
-        const resetDate = new Date(resetTime * 1000);
-        throw new Error(`Rate limit exceeded. Resets at ${resetDate.toLocaleTimeString()}`);
-      } else {
-        throw new Error('Access forbidden. You may need a GitHub token for this request.');
-      }
-    }
+  if (response.status === 404) {
+    throw new Error('User not found');
+  }
 
-    // Handle not found
-    if (error.response?.status === 404) {
-      throw new Error('User not found');
-    }
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    console.error('GitHub API Error:', { status: response.status, message: data.message, url });
+    throw new Error(data.message || 'GitHub API request failed');
+  }
 
-    // Handle network errors
-    if (error.code === 'ENOTFOUND' || error.code === 'ENETUNREACH') {
-      throw new Error('Network error. Please check your internet connection.');
-    }
+  return response.json();
+};
 
-    // Handle timeout
-    if (error.code === 'ECONNABORTED') {
+// Core fetch wrapper with timeout and error normalisation
+const githubFetch = async (path, params = {}) => {
+  const queryString = Object.keys(params).length ? `?${new URLSearchParams(params).toString()}` : '';
+  const url = `${BASE_URL}${path}${queryString}`;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+  try {
+    const response = await fetch(url, { headers: getHeaders(), signal: controller.signal });
+    clearTimeout(timeoutId);
+    return handleResponse(response, url);
+  } catch (err) {
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError') {
       throw new Error('Request timeout. Please try again.');
     }
-
-    // Log the error for debugging
-    console.error('GitHub API Error:', {
-      status: error.response?.status,
-      message: error.response?.data?.message,
-      url: error.config?.url,
-      headers: error.config?.headers
-    });
-
-    throw error;
+    if (err.message === 'Failed to fetch' || err.message.includes('NetworkError')) {
+      throw new Error('Network error. Please check your internet connection.');
+    }
+    throw err;
   }
-);
+};
 
-// Cache for storing API responses
-const cache = new Map();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
+// localStorage-backed cache — survives page reloads within the TTL
 const getCacheKey = (url, params = {}) => {
   const paramString = Object.keys(params).length ? `?${new URLSearchParams(params).toString()}` : '';
-  return `${url}${paramString}`;
+  return `${CACHE_PREFIX}${url}${paramString}`;
 };
 
 const getCachedData = key => {
-  const cached = cache.get(key);
-  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-    return cached.data;
+  try {
+    const item = localStorage.getItem(key);
+    if (!item) return null;
+    const cached = JSON.parse(item);
+    if (Date.now() - cached.timestamp < CACHE_DURATION) return cached.data;
+    localStorage.removeItem(key);
+  } catch {
+    // Corrupt entry — ignore
   }
-  cache.delete(key);
   return null;
 };
 
 const setCachedData = (key, data) => {
-  cache.set(key, { data, timestamp: Date.now() });
+  try {
+    localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
+  } catch {
+    // localStorage quota exceeded — skip caching silently
+  }
 };
 
 // GitHub API service functions
@@ -110,19 +104,11 @@ export const githubService = {
   async getUser(username) {
     const cacheKey = getCacheKey(`/users/${username}`);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/users/${username}`);
-      const userData = response.data;
-      setCachedData(cacheKey, userData);
-      return userData;
-    } catch (error) {
-      throw error;
-    }
+    const userData = await githubFetch(`/users/${username}`);
+    setCachedData(cacheKey, userData);
+    return userData;
   },
 
   // Get user repositories
@@ -132,88 +118,54 @@ export const githubService = {
       direction: options.direction || 'desc',
       per_page: options.perPage || 30,
       page: options.page || 1,
-      type: options.type || 'owner'
+      type: options.type || 'owner',
     };
 
     const cacheKey = getCacheKey(`/users/${username}/repos`, params);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/users/${username}/repos`, { params });
-      const reposData = response.data;
-      setCachedData(cacheKey, reposData);
-      return reposData;
-    } catch (error) {
-      throw error;
-    }
+    const reposData = await githubFetch(`/users/${username}/repos`, params);
+    setCachedData(cacheKey, reposData);
+    return reposData;
   },
 
   // Get repository details
   async getRepository(owner, repo) {
     const cacheKey = getCacheKey(`/repos/${owner}/${repo}`);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/repos/${owner}/${repo}`);
-      const repoData = response.data;
-      setCachedData(cacheKey, repoData);
-      return repoData;
-    } catch (error) {
-      throw error;
-    }
+    const repoData = await githubFetch(`/repos/${owner}/${repo}`);
+    setCachedData(cacheKey, repoData);
+    return repoData;
   },
 
   // Get repository languages
   async getRepositoryLanguages(owner, repo) {
     const cacheKey = getCacheKey(`/repos/${owner}/${repo}/languages`);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/repos/${owner}/${repo}/languages`);
-      const languagesData = response.data;
-      setCachedData(cacheKey, languagesData);
-      return languagesData;
-    } catch (error) {
-      throw error;
-    }
+    const languagesData = await githubFetch(`/repos/${owner}/${repo}/languages`);
+    setCachedData(cacheKey, languagesData);
+    return languagesData;
   },
 
   // Get repository collaborators
   async getRepositoryCollaborators(owner, repo, options = {}) {
-    const params = {
-      per_page: options.perPage || 30,
-      page: options.page || 1
-    };
-
+    const params = { per_page: options.perPage || 30, page: options.page || 1 };
     const cacheKey = getCacheKey(`/repos/${owner}/${repo}/collaborators`, params);
     const cachedData = getCachedData(cacheKey);
-
-    if (cachedData) {
-      return cachedData;
-    }
+    if (cachedData) return cachedData;
 
     try {
-      const response = await githubAPI.get(`/repos/${owner}/${repo}/collaborators`, { params });
-      const collaboratorsData = response.data;
+      const collaboratorsData = await githubFetch(`/repos/${owner}/${repo}/collaborators`, params);
       setCachedData(cacheKey, collaboratorsData);
       return collaboratorsData;
     } catch (error) {
-      // If collaborators are not accessible (private repo, no access), return empty array
-      if (error.response?.status === 403 || error.response?.status === 404) {
-        return [];
-      }
+      // Private repo or no access — return empty array gracefully
+      if (error.message.includes('forbidden') || error.message === 'User not found') return [];
       throw error;
     }
   },
@@ -222,67 +174,35 @@ export const githubService = {
   async getUserOrganizations(username) {
     const cacheKey = getCacheKey(`/users/${username}/orgs`);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/users/${username}/orgs`);
-      const orgsData = response.data;
-      setCachedData(cacheKey, orgsData);
-      return orgsData;
-    } catch (error) {
-      throw error;
-    }
+    const orgsData = await githubFetch(`/users/${username}/orgs`);
+    setCachedData(cacheKey, orgsData);
+    return orgsData;
   },
 
   // Get user's followers
   async getUserFollowers(username, options = {}) {
-    const params = {
-      per_page: options.perPage || 30,
-      page: options.page || 1
-    };
-
+    const params = { per_page: options.perPage || 30, page: options.page || 1 };
     const cacheKey = getCacheKey(`/users/${username}/followers`, params);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/users/${username}/followers`, { params });
-      const followersData = response.data;
-      setCachedData(cacheKey, followersData);
-      return followersData;
-    } catch (error) {
-      throw error;
-    }
+    const followersData = await githubFetch(`/users/${username}/followers`, params);
+    setCachedData(cacheKey, followersData);
+    return followersData;
   },
 
   // Get user's following
   async getUserFollowing(username, options = {}) {
-    const params = {
-      per_page: options.perPage || 30,
-      page: options.page || 1
-    };
-
+    const params = { per_page: options.perPage || 30, page: options.page || 1 };
     const cacheKey = getCacheKey(`/users/${username}/following`, params);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get(`/users/${username}/following`, { params });
-      const followingData = response.data;
-      setCachedData(cacheKey, followingData);
-      return followingData;
-    } catch (error) {
-      throw error;
-    }
+    const followingData = await githubFetch(`/users/${username}/following`, params);
+    setCachedData(cacheKey, followingData);
+    return followingData;
   },
 
   // Search users
@@ -292,66 +212,43 @@ export const githubService = {
       sort: options.sort || 'best-match',
       order: options.order || 'desc',
       per_page: options.perPage || 10,
-      page: options.page || 1
+      page: options.page || 1,
     };
 
     const cacheKey = getCacheKey('/search/users', params);
     const cachedData = getCachedData(cacheKey);
+    if (cachedData) return cachedData;
 
-    if (cachedData) {
-      return cachedData;
-    }
-
-    try {
-      const response = await githubAPI.get('/search/users', { params });
-      const searchData = response.data;
-      setCachedData(cacheKey, searchData);
-      return searchData;
-    } catch (error) {
-      throw error;
-    }
+    const searchData = await githubFetch('/search/users', params);
+    setCachedData(cacheKey, searchData);
+    return searchData;
   },
 
   // Get rate limit info
   async getRateLimit() {
-    try {
-      const response = await githubAPI.get('/rate_limit');
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return githubFetch('/rate_limit');
   },
 
   // Test token validity and API connectivity
   async testConnection() {
     try {
       const token = import.meta.env.VITE_GITHUB_TOKEN;
-      
+
       if (!token || token === 'your_github_personal_access_token_here' || token.trim() === '') {
-        // Test unauthenticated request
-        const response = await githubAPI.get('/rate_limit');
-        return {
-          authenticated: false,
-          valid: true,
-          rateLimit: response.data.rate
-        };
+        const data = await githubFetch('/rate_limit');
+        return { authenticated: false, valid: true, rateLimit: data.rate };
       } else {
-        // Test authenticated request
-        const response = await githubAPI.get('/user');
+        const userData = await githubFetch('/user');
         return {
           authenticated: true,
           valid: true,
-          user: response.data.login,
-          rateLimit: await this.getRateLimit()
+          user: userData.login,
+          rateLimit: await this.getRateLimit(),
         };
       }
     } catch (error) {
-      if (error.response?.status === 401) {
-        return {
-          authenticated: false,
-          valid: false,
-          error: 'Invalid token'
-        };
+      if (error.message.includes('Invalid GitHub token')) {
+        return { authenticated: false, valid: false, error: 'Invalid token' };
       }
       throw error;
     }
@@ -361,34 +258,36 @@ export const githubService = {
   async getUserSocialAccounts(username) {
     const cacheKey = getCacheKey(`/users/${username}/social_accounts`);
     const cachedData = getCachedData(cacheKey);
-
-    if (cachedData) {
-      return cachedData;
-    }
+    if (cachedData) return cachedData;
 
     try {
-      const response = await githubAPI.get(`/users/${username}/social_accounts`);
-      const socialAccounts = response.data;
+      const socialAccounts = await githubFetch(`/users/${username}/social_accounts`);
       setCachedData(cacheKey, socialAccounts);
       return socialAccounts;
     } catch (error) {
-      // If the API returns 404 or another error, return empty array
-      if (error.response?.status === 404) {
-        return [];
-      }
+      if (error.message === 'User not found') return [];
       throw error;
     }
   },
 
-  // Clear cache
+  // Clear all cached entries created by this service
   clearCache() {
-    cache.clear();
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(CACHE_PREFIX)) keysToRemove.push(key);
+    }
+    keysToRemove.forEach(k => localStorage.removeItem(k));
   },
 
-  // Get cache size
+  // Count cached entries
   getCacheSize() {
-    return cache.size;
-  }
+    let count = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i)?.startsWith(CACHE_PREFIX)) count++;
+    }
+    return count;
+  },
 };
 
 export default githubService;

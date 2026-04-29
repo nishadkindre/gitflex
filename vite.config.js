@@ -1,20 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { VitePWA } from 'vite-plugin-pwa'
-import legacy from '@vitejs/plugin-legacy'
 import { visualizer } from 'rollup-plugin-visualizer'
+import compression from 'vite-plugin-compression'
 import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    
-    // Legacy browser support
-    legacy({
-      targets: ['defaults', 'not IE 11']
-    }),
-    
+
+    // Pre-compress assets for faster delivery
+    compression({ algorithm: 'brotliCompress', ext: '.br' }),
+    compression({ algorithm: 'gzip', ext: '.gz' }),
+
     // PWA configuration
     VitePWA({
       registerType: 'autoUpdate',
