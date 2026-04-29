@@ -6,8 +6,8 @@ import Button from '../components/ui/Button';
 import { FeatureCard, ProfileCard } from '../components/ui/Card';
 import { githubService } from '../services/githubService';
 import { validateGitHubUsername, getStoredProfiles, addToStoredProfiles, debounce } from '../utils/helpers';
-import profilePreviewLight from '../assets/new-design/profile-light.jpeg';
-import profilePreviewDark from '../assets/new-design/profile-dark.jpeg';
+import profilePreviewLight from '../assets/new-design/profile-light.webp';
+import profilePreviewDark from '../assets/new-design/profile-dark.webp';
 import { useTheme } from '../context/ThemeContext';
 
 const HeroSection = ({ onSearch, isSearching }) => {
@@ -231,6 +231,8 @@ const HeroSection = ({ onSearch, isSearching }) => {
                     src={profilePreview}
                     alt="GitFlex profile preview"
                     className="w-full object-cover object-top transition-opacity duration-300"
+                    loading="eager"
+                    fetchpriority="high"
                   />
                 </a>
                 {/* Fade-out gradient at bottom */}
