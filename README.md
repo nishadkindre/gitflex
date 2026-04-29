@@ -15,7 +15,7 @@
   
   <img width="1763" height="2975" alt="profile-dark" src="https://github.com/user-attachments/assets/c08c9d3e-c990-469b-9799-6a7b180e1a71" />
 
-<!-- </div> -->
+</div>
 
 ## ✨ Features
 
