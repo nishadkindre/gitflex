@@ -83,7 +83,7 @@ const UserInfoCard = ({ user, repos, className = '' }) => {
       className={className}
       // className={`sticky top-8 h-fit ${className}`}
     >
-      <div className="bg-card text-card-foreground border border-border rounded-lg p-6 space-y-6 shadow-neo dark:shadow-neo-dark">
+      <div className="lg:sticky top-8 h-fit bg-card text-card-foreground border border-border rounded-lg p-6 space-y-6 shadow-neo dark:shadow-neo-dark">
         {/* Avatar and Basic Info */}
         <div className="text-center space-y-4">
           <motion.div whileHover={{ scale: 1.05 }} className="relative inline-block">
