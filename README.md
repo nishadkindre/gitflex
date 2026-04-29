@@ -11,8 +11,11 @@
   [![Vite](https://img.shields.io/badge/Vite-4+-646CFF.svg)](https://vitejs.dev/)
 
 
-  <img width="1755" height="2953" alt="image" src="https://github.com/user-attachments/assets/5941d00c-d50d-4cf3-a88d-2312e595a3cb" />
-</div>
+  <!--  <img width="1755" height="2953" alt="image" src="https://github.com/user-attachments/assets/5941d00c-d50d-4cf3-a88d-2312e595a3cb" /> -->
+  
+  <img width="1763" height="2975" alt="profile-dark" src="https://github.com/user-attachments/assets/c08c9d3e-c990-469b-9799-6a7b180e1a71" />
+
+<!-- </div> -->
 
 ## ✨ Features
 
