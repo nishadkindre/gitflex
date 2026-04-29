@@ -6,8 +6,8 @@ import Button from '../components/ui/Button';
 import { FeatureCard, ProfileCard } from '../components/ui/Card';
 import { githubService } from '../services/githubService';
 import { validateGitHubUsername, getStoredProfiles, addToStoredProfiles, debounce } from '../utils/helpers';
-import profilePreviewLight from '../assets/nishad-kindre-gitflex-light-mode.jpeg';
-import profilePreviewDark from '../assets/nishad-kindre-gitflex-dark-mode.jpeg';
+import profilePreviewLight from '../assets/new-design/profile-light.jpeg';
+import profilePreviewDark from '../assets/new-design/profile-dark.jpeg';
 import { useTheme } from '../context/ThemeContext';
 
 const HeroSection = ({ onSearch, isSearching }) => {
@@ -225,12 +225,14 @@ const HeroSection = ({ onSearch, isSearching }) => {
               </div>
               {/* Screenshot */}
               <div className="relative overflow-hidden max-h-[480px]">
-                <img
-                  key={theme}
-                  src={profilePreview}
-                  alt="GitFlex profile preview"
-                  className="w-full object-cover object-top transition-opacity duration-300"
-                />
+                <a href="https://gitflexx.vercel.app/nishadkindre" target="_blank" rel="noopener noreferrer">
+                  <img
+                    key={theme}
+                    src={profilePreview}
+                    alt="GitFlex profile preview"
+                    className="w-full object-cover object-top transition-opacity duration-300"
+                  />
+                </a>
                 {/* Fade-out gradient at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card to-transparent" />
               </div>
